@@ -2,6 +2,7 @@
 
 namespace GeoIO\Geometry;
 
+use GeoIO;
 use GeoIO\Geometry\Exception\MissingCoordinateException;
 
 class Point extends Geometry
@@ -66,14 +67,14 @@ class Point extends Geometry
         $this->assertDimension($dimension);
 
         if (null === $this->getZ() &&
-            (GeometryInterface::DIMENSION_4D === $dimension ||
-             GeometryInterface::DIMENSION_3DZ === $dimension)) {
+            (GeoIO\DIMENSION_4D === $dimension ||
+             GeoIO\DIMENSION_3DZ === $dimension)) {
             throw MissingCoordinateException::create('Z', $dimension);
         }
 
         if (null === $this->getM() &&
-            (GeometryInterface::DIMENSION_4D === $dimension ||
-             GeometryInterface::DIMENSION_3DM === $dimension)) {
+            (GeoIO\DIMENSION_4D === $dimension ||
+             GeoIO\DIMENSION_3DM === $dimension)) {
             throw MissingCoordinateException::create('M', $dimension);
         }
     }

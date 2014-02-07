@@ -2,6 +2,8 @@
 
 namespace GeoIO\Geometry;
 
+use GeoIO;
+
 class PointTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
@@ -22,7 +24,7 @@ class PointTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForMissingZCoordinate()
     {
-        new Point(GeometryInterface::DIMENSION_3DZ, new Coordinates(1, 2));
+        new Point(GeoIO\DIMENSION_3DZ, new Coordinates(1, 2));
     }
 
     /**
@@ -30,12 +32,12 @@ class PointTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForMissingMCoordinate()
     {
-        new Point(GeometryInterface::DIMENSION_3DM, new Coordinates(1, 2, 3));
+        new Point(GeoIO\DIMENSION_3DM, new Coordinates(1, 2, 3));
     }
 
     public function testConstructorShouldAllowEmptyCoordinates()
     {
-        $polygon = new Point(GeometryInterface::DIMENSION_2D);
+        $polygon = new Point(GeoIO\DIMENSION_2D);
         $this->assertTrue($polygon->isEmpty());
     }
 }

@@ -2,6 +2,8 @@
 
 namespace GeoIO\Geometry;
 
+use GeoIO;
+
 class LineStringTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
@@ -14,7 +16,7 @@ class LineStringTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfGeometryObjects()
     {
-        new LineString(GeometryInterface::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
+        new LineString(GeoIO\DIMENSION_2D, array(new \stdClass(), new \stdClass()));
     }
 
     /**
@@ -22,7 +24,7 @@ class LineStringTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfPointObjects()
     {
-        new LineString(GeometryInterface::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
+        new LineString(GeoIO\DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
     }
 
     /**
@@ -30,7 +32,7 @@ class LineStringTest extends TestCase
      */
     public function testConstructorShouldRequireAtLeastTwoPositions()
     {
-        new LineString(GeometryInterface::DIMENSION_2D, array($this->getPointMock()));
+        new LineString(GeoIO\DIMENSION_2D, array($this->getPointMock()));
     }
 
     /**
@@ -47,16 +49,16 @@ class LineStringTest extends TestCase
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
         $points = array(
-            $this->getPointMock(GeometryInterface::DIMENSION_2D),
-            $this->getPointMock(GeometryInterface::DIMENSION_4D)
+            $this->getPointMock(GeoIO\DIMENSION_2D),
+            $this->getPointMock(GeoIO\DIMENSION_4D)
         );
 
-        new LineString(GeometryInterface::DIMENSION_2D, $points);
+        new LineString(GeoIO\DIMENSION_2D, $points);
     }
 
     public function testConstructorShouldAllowEmptyPoints()
     {
-        $lineString = new LineString(GeometryInterface::DIMENSION_2D);
+        $lineString = new LineString(GeoIO\DIMENSION_2D);
         $this->assertTrue($lineString->isEmpty());
     }
 }

@@ -2,6 +2,8 @@
 
 namespace GeoIO\Geometry;
 
+use GeoIO;
+
 class LinearRingTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
@@ -14,7 +16,7 @@ class LinearRingTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfGeometryObjects()
     {
-        new LinearRing(GeometryInterface::DIMENSION_2D, array(new \stdClass(), new \stdClass(), new \stdClass(), new \stdClass()));
+        new LinearRing(GeoIO\DIMENSION_2D, array(new \stdClass(), new \stdClass(), new \stdClass(), new \stdClass()));
     }
 
     /**
@@ -22,7 +24,7 @@ class LinearRingTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfPointObjects()
     {
-        new LinearRing(GeometryInterface::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock()));
+        new LinearRing(GeoIO\DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock()));
     }
 
     /**
@@ -30,7 +32,7 @@ class LinearRingTest extends TestCase
      */
     public function testConstructorShouldRequireAtLeast3Positions()
     {
-        new LinearRing(GeometryInterface::DIMENSION_2D, array($this->getPointMock(GeometryInterface::DIMENSION_2D), $this->getPointMock(GeometryInterface::DIMENSION_2D)));
+        new LinearRing(GeoIO\DIMENSION_2D, array($this->getPointMock(GeoIO\DIMENSION_2D), $this->getPointMock(GeoIO\DIMENSION_2D)));
     }
 
     /**
@@ -47,13 +49,13 @@ class LinearRingTest extends TestCase
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
         $points = array(
-            $this->getPointMock(GeometryInterface::DIMENSION_2D),
-            $this->getPointMock(GeometryInterface::DIMENSION_2D),
-            $this->getPointMock(GeometryInterface::DIMENSION_2D),
-            $this->getPointMock(GeometryInterface::DIMENSION_4D)
+            $this->getPointMock(GeoIO\DIMENSION_2D),
+            $this->getPointMock(GeoIO\DIMENSION_2D),
+            $this->getPointMock(GeoIO\DIMENSION_2D),
+            $this->getPointMock(GeoIO\DIMENSION_4D)
         );
 
-        new LinearRing(GeometryInterface::DIMENSION_2D, $points);
+        new LinearRing(GeoIO\DIMENSION_2D, $points);
     }
 
     /**
@@ -62,18 +64,18 @@ class LinearRingTest extends TestCase
     public function testConstructorShouldThrowExceptionNotClosed()
     {
         $points = array(
-            $this->getPointMock(GeometryInterface::DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
-            $this->getPointMock(GeometryInterface::DIMENSION_2D, null,new Coordinates(5, 6, 7, 8)),
-            $this->getPointMock(GeometryInterface::DIMENSION_2D, null,new Coordinates(9, 10, 11, 12)),
-            $this->getPointMock(GeometryInterface::DIMENSION_2D, null,new Coordinates(1, 2, 3, 14))
+            $this->getPointMock(GeoIO\DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
+            $this->getPointMock(GeoIO\DIMENSION_2D, null,new Coordinates(5, 6, 7, 8)),
+            $this->getPointMock(GeoIO\DIMENSION_2D, null,new Coordinates(9, 10, 11, 12)),
+            $this->getPointMock(GeoIO\DIMENSION_2D, null,new Coordinates(1, 2, 3, 14))
         );
 
-        new LinearRing(GeometryInterface::DIMENSION_2D, $points);
+        new LinearRing(GeoIO\DIMENSION_2D, $points);
     }
 
     public function testConstructorShouldAllowEmptyPoints()
     {
-        $lineString = new LinearRing(GeometryInterface::DIMENSION_2D);
+        $lineString = new LinearRing(GeoIO\DIMENSION_2D);
         $this->assertTrue($lineString->isEmpty());
     }
 }

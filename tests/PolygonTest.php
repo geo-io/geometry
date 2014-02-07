@@ -2,6 +2,8 @@
 
 namespace GeoIO\Geometry;
 
+use GeoIO;
+
 class PolygonTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
@@ -14,7 +16,7 @@ class PolygonTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfGeometryObjects()
     {
-        new Polygon(GeometryInterface::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
+        new Polygon(GeoIO\DIMENSION_2D, array(new \stdClass(), new \stdClass()));
     }
 
     /**
@@ -22,7 +24,7 @@ class PolygonTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfLineStringObjects()
     {
-        new Polygon(GeometryInterface::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
+        new Polygon(GeoIO\DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
     }
 
     /**
@@ -39,15 +41,15 @@ class PolygonTest extends TestCase
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
         $lineStrings = array(
-             $this->getLinearRingMock(GeometryInterface::DIMENSION_4D)
+             $this->getLinearRingMock(GeoIO\DIMENSION_4D)
         );
 
-        new Polygon(GeometryInterface::DIMENSION_2D, $lineStrings);
+        new Polygon(GeoIO\DIMENSION_2D, $lineStrings);
     }
 
     public function testConstructorShouldAllowEmptyLineStrings()
     {
-        $polygon = new Polygon(GeometryInterface::DIMENSION_2D);
+        $polygon = new Polygon(GeoIO\DIMENSION_2D);
         $this->assertTrue($polygon->isEmpty());
     }
 }
