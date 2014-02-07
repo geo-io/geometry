@@ -1,0 +1,29 @@
+{
+    "name": "geo-io/geometry",
+    "description": "Basic geometric objects.",
+    "keywords": [
+        "geo",
+        "io",
+        "geometry"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jan Sorgalla",
+            "email": "jsorgalla@googlemail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeoIO\\Geometry\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
