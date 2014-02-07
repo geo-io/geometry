@@ -1,7 +1,7 @@
 Geo I/O Geometry
 ================
 
-[![Build Status](https://secure.travis-ci.org/geo-io/geometry.png?branch=master)](http://travis-ci.org/geo-io/geometry)
+[![Build Status](https://travis-ci.org/geo-io/geometry.png?branch=master)](https://travis-ci.org/geo-io/geometry)
 
 Basic geometric objects.
 
