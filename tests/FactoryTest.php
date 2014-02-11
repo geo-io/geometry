@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-use GeoIO;
+use GeoIO\Dimension;
 
 class FactoryTest  extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createPoint(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createPoint(Dimension::DIMENSION_4D, array(
             'x' => 1,
             'y' => 2,
             'z' => 3,
@@ -18,7 +18,7 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\Point', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
 
         $this->assertSame(1, $geometry->getX());
@@ -31,11 +31,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createLineString(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createLineString(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\LineString', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 
@@ -43,11 +43,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createPolygon(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createPolygon(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\Polygon', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 
@@ -55,11 +55,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createMultiPoint(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createMultiPoint(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\MultiPoint', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 
@@ -67,11 +67,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createMultiLineString(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createMultiLineString(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\MultiLineString', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 
@@ -79,11 +79,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createMultiPolygon(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createMultiPolygon(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\MultiPolygon', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 
@@ -91,11 +91,11 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
     {
         $factory = new Factory();
 
-        $geometry = $factory->createGeometryCollection(GeoIO\DIMENSION_4D, array(
+        $geometry = $factory->createGeometryCollection(Dimension::DIMENSION_4D, array(
         ), 1234);
 
         $this->assertInstanceOf('GeoIO\Geometry\GeometryCollection', $geometry);
-        $this->assertSame(GeoIO\DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
         $this->assertSame(1234, $geometry->getSrid());
     }
 }

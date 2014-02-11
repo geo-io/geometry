@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-use GeoIO\FactoryInterface;
+use GeoIO\Factory as FactoryInterface;
 
 class Factory implements FactoryInterface
 {

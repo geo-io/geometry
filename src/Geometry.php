@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-use GeoIO;
+use GeoIO\Dimension;
 use GeoIO\Geometry\Exception\InvalidDimensionException;
 use GeoIO\Geometry\Exception\InvalidGeometryException;
 use GeoIO\Geometry\Exception\InvalidGeometryTypeException;
@@ -27,10 +27,10 @@ abstract class Geometry implements GeometryInterface
     protected function assertDimension($dimension)
     {
         switch ($dimension) {
-            case GeoIO\DIMENSION_4D:
-            case GeoIO\DIMENSION_3DZ:
-            case GeoIO\DIMENSION_3DM:
-            case GeoIO\DIMENSION_2D:
+            case Dimension::DIMENSION_4D:
+            case Dimension::DIMENSION_3DZ:
+            case Dimension::DIMENSION_3DM:
+            case Dimension::DIMENSION_2D:
                 break;
             default:
                 throw InvalidDimensionException::create($dimension);

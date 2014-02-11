@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-use GeoIO;
+use GeoIO\Dimension;
 
 class MultiPolygonTest extends TestCase
 {
@@ -16,7 +16,7 @@ class MultiPolygonTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfGeometryObjects()
     {
-        new MultiPolygon(GeoIO\DIMENSION_2D, array(new \stdClass(), new \stdClass()));
+        new MultiPolygon(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
     }
 
     /**
@@ -24,7 +24,7 @@ class MultiPolygonTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfPolygonObjects()
     {
-        new MultiPolygon(GeoIO\DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
+        new MultiPolygon(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
     }
 
     /**
@@ -41,16 +41,16 @@ class MultiPolygonTest extends TestCase
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
         $points = array(
-            $this->getPolygonMock(GeoIO\DIMENSION_2D),
-            $this->getPolygonMock(GeoIO\DIMENSION_4D)
+            $this->getPolygonMock(Dimension::DIMENSION_2D),
+            $this->getPolygonMock(Dimension::DIMENSION_4D)
         );
 
-        new MultiPolygon(GeoIO\DIMENSION_2D, $points);
+        new MultiPolygon(Dimension::DIMENSION_2D, $points);
     }
 
     public function testConstructorShouldAllowEmptyPolygons()
     {
-        $lineString = new MultiPolygon(GeoIO\DIMENSION_2D);
+        $lineString = new MultiPolygon(Dimension::DIMENSION_2D);
         $this->assertTrue($lineString->isEmpty());
     }
 }

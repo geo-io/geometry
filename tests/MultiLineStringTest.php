@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-use GeoIO;
+use GeoIO\Dimension;
 
 class MultiLineStringTest extends TestCase
 {
@@ -16,7 +16,7 @@ class MultiLineStringTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfGeometryObjects()
     {
-        new MultiLineString(GeoIO\DIMENSION_2D, array(new \stdClass(), new \stdClass()));
+        new MultiLineString(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
     }
 
     /**
@@ -24,7 +24,7 @@ class MultiLineStringTest extends TestCase
      */
     public function testConstructorShouldRequireArrayOfLineStringObjects()
     {
-        new MultiLineString(GeoIO\DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
+        new MultiLineString(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
     }
 
     /**
@@ -41,16 +41,16 @@ class MultiLineStringTest extends TestCase
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
         $points = array(
-            $this->getLineStringMock(GeoIO\DIMENSION_2D),
-            $this->getLineStringMock(GeoIO\DIMENSION_4D)
+            $this->getLineStringMock(Dimension::DIMENSION_2D),
+            $this->getLineStringMock(Dimension::DIMENSION_4D)
         );
 
-        new MultiLineString(GeoIO\DIMENSION_2D, $points);
+        new MultiLineString(Dimension::DIMENSION_2D, $points);
     }
 
     public function testConstructorShouldAllowEmptyLineStrings()
     {
-        $lineString = new MultiLineString(GeoIO\DIMENSION_2D);
+        $lineString = new MultiLineString(Dimension::DIMENSION_2D);
         $this->assertTrue($lineString->isEmpty());
     }
 }
