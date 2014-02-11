@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-class MultiLineString extends Geometry
+class MultiLineString extends BaseGeometry
 {
     private $lineStrings;
 

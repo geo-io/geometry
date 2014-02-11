@@ -5,7 +5,7 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use GeoIO\Geometry\Exception\MissingCoordinateException;
 
-class Point extends Geometry
+class Point extends BaseGeometry
 {
     private $coordinates;
 

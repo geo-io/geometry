@@ -8,7 +8,7 @@ class LineStringTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LineString', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LineString', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

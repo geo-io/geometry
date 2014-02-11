@@ -8,7 +8,7 @@ class MultiPolygonTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiPolygon', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiPolygon', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

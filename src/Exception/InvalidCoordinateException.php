@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry\Exception;
 
-class InvalidCoordinateException extends \InvalidArgumentException implements ExceptionInterface
+class InvalidCoordinateException extends \InvalidArgumentException implements Exception
 {
     public static function create($coordinate, $nullAllowed = false)
     {

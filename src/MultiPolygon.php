@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-class MultiPolygon extends Geometry
+class MultiPolygon extends BaseGeometry
 {
     private $polygons;
 

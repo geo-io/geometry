@@ -8,7 +8,7 @@ class MultiPointTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiPoint', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiPoint', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

@@ -8,7 +8,7 @@ class LinearRingTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LinearRing', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LinearRing', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

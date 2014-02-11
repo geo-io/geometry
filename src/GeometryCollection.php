@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-class GeometryCollection extends Geometry implements \Countable, \IteratorAggregate
+class GeometryCollection extends BaseGeometry implements \Countable, \IteratorAggregate
 {
     private $geometries;
 

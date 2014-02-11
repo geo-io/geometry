@@ -8,7 +8,7 @@ class GeometryCollectionTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\GeometryCollection', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\GeometryCollection', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

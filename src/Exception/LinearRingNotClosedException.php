@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry\Exception;
 
-class LinearRingNotClosedException extends \InvalidArgumentException implements ExceptionInterface
+class LinearRingNotClosedException extends \InvalidArgumentException implements Exception
 {
     public static function create()
     {

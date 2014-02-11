@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry\Exception;
 
-class InvalidDimensionException extends \InvalidArgumentException implements ExceptionInterface
+class InvalidDimensionException extends \InvalidArgumentException implements Exception
 {
     public static function create($dimension)
     {

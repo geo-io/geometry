@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry\Exception;
 
-class InsufficientNumberOfGeometriesException extends \InvalidArgumentException implements ExceptionInterface
+class InsufficientNumberOfGeometriesException extends \InvalidArgumentException implements Exception
 {
     public static function create($expected, $given, $type)
     {

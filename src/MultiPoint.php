@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-class MultiPoint extends Geometry
+class MultiPoint extends BaseGeometry
 {
     private $points;
 

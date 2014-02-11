@@ -8,7 +8,7 @@ class MultiLineStringTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiLineString', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiLineString', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

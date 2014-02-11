@@ -4,7 +4,7 @@ namespace GeoIO\Geometry;
 
 use GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException;
 
-class LineString extends Geometry
+class LineString extends BaseGeometry
 {
     private $points;
 

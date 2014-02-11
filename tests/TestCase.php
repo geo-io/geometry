@@ -6,7 +6,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected function getGeometryMock($dimension = null, $srid = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\GeometryInterface', $dimension, $srid);
+        return $this->getGeometryMockForClass('GeoIO\\Geometry\\Geometry', $dimension, $srid);
     }
 
     protected function getPointMock($dimension = null, $srid = null, Coordinates $coordinates = null)

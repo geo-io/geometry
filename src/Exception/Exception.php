@@ -2,4 +2,4 @@
 
 namespace GeoIO\Geometry\Exception;
 
-interface ExceptionInterface {}
+interface Exception {}

@@ -8,7 +8,7 @@ class PointTest extends TestCase
 {
     public function testIsSubclassOfGeometry()
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\Point', 'GeoIO\Geometry\Geometry'));
+        $this->assertTrue(is_subclass_of('GeoIO\Geometry\Point', 'GeoIO\Geometry\BaseGeometry'));
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry;
 
-class Polygon extends Geometry
+class Polygon extends BaseGeometry
 {
     private $lineStrings;
 

@@ -2,11 +2,11 @@
 
 namespace GeoIO\Geometry\Exception;
 
-use GeoIO\Geometry\GeometryInterface;
+use GeoIO\Geometry\Geometry;
 
-class InvalidGeometryTypeException extends \InvalidArgumentException implements ExceptionInterface
+class InvalidGeometryTypeException extends \InvalidArgumentException implements Exception
 {
-    public static function create($expected, GeometryInterface $geometry)
+    public static function create($expected, Geometry $geometry)
     {
         return new self(sprintf(
             'Expected valid %s object, got %s.',

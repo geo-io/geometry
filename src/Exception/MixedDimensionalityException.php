@@ -2,11 +2,11 @@
 
 namespace GeoIO\Geometry\Exception;
 
-use GeoIO\Geometry\GeometryInterface;
+use GeoIO\Geometry\Geometry;
 
-class MixedDimensionalityException extends \InvalidArgumentException implements ExceptionInterface
+class MixedDimensionalityException extends \InvalidArgumentException implements Exception
 {
-    public static function create(GeometryInterface $geometry, GeometryInterface $subGeometry)
+    public static function create(Geometry $geometry, Geometry $subGeometry)
     {
         return new self(sprintf(
             'Can not mix dimensionality in a geometry: %s(%s) vs. %s(%s).',
