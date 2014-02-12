@@ -12,7 +12,7 @@ class Extractor implements ExtractorInterface
         return $geometry instanceof Geometry;
     }
 
-    public function type($geometry)
+    public function extractType($geometry)
     {
         switch (true) {
             case $geometry instanceof Point:
@@ -34,71 +34,53 @@ class Extractor implements ExtractorInterface
         }
     }
 
-    public function extractPoint($point)
+    public function extractDimension($geometry)
+    {
+        return $geometry->getDimension();
+    }
+
+    public function extractSrid($geometry)
+    {
+        return $geometry->getSrid();
+    }
+
+    public function extractCoordinatesFromPoint($point)
     {
         return array(
-            'dimension' => $point->getDimension(),
-            'coordinates' => array(
-                'x' => $point->getX(),
-                'y' => $point->getY(),
-                'z' => $point->getZ(),
-                'm' => $point->getM()
-            ),
-            'srid' => $point->getSrid()
+            'x' => $point->getX(),
+            'y' => $point->getY(),
+            'z' => $point->getZ(),
+            'm' => $point->getM()
         );
     }
 
-    public function extractLineString($lineString)
+    public function extractPointsFromLineString($lineString)
     {
-        return array(
-            'dimension' => $lineString->getDimension(),
-            'points' => $lineString->getPoints(),
-            'srid' => $lineString->getSrid()
-        );
+        return $lineString->getPoints();
     }
 
-    public function extractPolygon($polygon)
+    public function extractLineStringsFromPolygon($polygon)
     {
-        return array(
-            'dimension' => $polygon->getDimension(),
-            'linestrings' => $polygon->getLineStrings(),
-            'srid' => $polygon->getSrid()
-        );
+        return $polygon->getLineStrings();
     }
 
-    public function extractMultiPoint($multiPoint)
+    public function extractPointsFromMultiPoint($multiPoint)
     {
-        return array(
-            'dimension' => $multiPoint->getDimension(),
-            'points' => $multiPoint->getPoints(),
-            'srid' => $multiPoint->getSrid()
-        );
+        return $multiPoint->getPoints();
     }
 
-    public function extractMultiLineString($multiLineString)
+    public function extractLineStringsFromMultiLineString($multiLineString)
     {
-        return array(
-            'dimension' => $multiLineString->getDimension(),
-            'linestrings' => $multiLineString->getLineStrings(),
-            'srid' => $multiLineString->getSrid()
-        );
+        return $multiLineString->getLineStrings();
     }
 
-    public function extractMultiPolygon($multiPolygon)
+    public function extractPolygonsFromMultiPolygon($multiPolygon)
     {
-        return array(
-            'dimension' => $multiPolygon->getDimension(),
-            'polygons' => $multiPolygon->getPolygons(),
-            'srid' => $multiPolygon->getSrid()
-        );
+        return $multiPolygon->getPolygons();
     }
 
-    public function extractGeometryCollection($geometryCollection)
+    public function extractGeometriesFromGeometryCollection($geometryCollection)
     {
-        return array(
-            'dimension' => $geometryCollection->getDimension(),
-            'geometries' => $geometryCollection->getGeometries(),
-            'srid' => $geometryCollection->getSrid()
-        );
+        return $geometryCollection->getGeometries();
     }
 }

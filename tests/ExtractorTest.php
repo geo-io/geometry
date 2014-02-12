@@ -23,28 +23,49 @@ class ExtractorTest  extends TestCase
         $this->assertFalse($extractor->supports(new \stdClass()));
     }
 
-    public function testType()
+    public function testExtractType()
     {
         $extractor = new Extractor();
 
-        $this->assertSame(ExtractorInterface::TYPE_POINT, $extractor->type($this->getPointMock()));
-        $this->assertSame(ExtractorInterface::TYPE_LINESTRING, $extractor->type($this->getLineStringMock()));
-        $this->assertSame(ExtractorInterface::TYPE_POLYGON, $extractor->type($this->getPolygonMock()));
-        $this->assertSame(ExtractorInterface::TYPE_MULTIPOINT, $extractor->type($this->getMultiPointMock()));
-        $this->assertSame(ExtractorInterface::TYPE_MULTILINESTRING, $extractor->type($this->getMultiLineStringMock()));
-        $this->assertSame(ExtractorInterface::TYPE_MULTIPOLYGON, $extractor->type($this->getMultiPolygonMock()));
-        $this->assertSame(ExtractorInterface::TYPE_GEOMETRYCOLLECTION, $extractor->type($this->getGeometryCollectionMock()));
+        $this->assertSame(ExtractorInterface::TYPE_POINT, $extractor->extractType($this->getPointMock()));
+        $this->assertSame(ExtractorInterface::TYPE_LINESTRING, $extractor->extractType($this->getLineStringMock()));
+        $this->assertSame(ExtractorInterface::TYPE_POLYGON, $extractor->extractType($this->getPolygonMock()));
+        $this->assertSame(ExtractorInterface::TYPE_MULTIPOINT, $extractor->extractType($this->getMultiPointMock()));
+        $this->assertSame(ExtractorInterface::TYPE_MULTILINESTRING, $extractor->extractType($this->getMultiLineStringMock()));
+        $this->assertSame(ExtractorInterface::TYPE_MULTIPOLYGON, $extractor->extractType($this->getMultiPolygonMock()));
+        $this->assertSame(ExtractorInterface::TYPE_GEOMETRYCOLLECTION, $extractor->extractType($this->getGeometryCollectionMock()));
     }
 
-    public function testTypeThrowsExceptionForInvalidGeometry()
+    public function testExtractTypeThrowsExceptionForInvalidGeometry()
     {
         $this->setExpectedException('GeoIO\Geometry\Exception\InvalidGeometryException');
 
         $extractor = new Extractor();
-        $extractor->type(new \stdClass());
+        $extractor->extractType(new \stdClass());
     }
 
-    public function testExtractPoint()
+    public function testExtractDimension()
+    {
+        $object = $this->getPointMock(
+            Dimension::DIMENSION_4D
+        );
+
+        $extractor = new Extractor();
+        $this->assertSame(Dimension::DIMENSION_4D, $extractor->extractDimension($object));
+    }
+
+    public function testExtractSrid()
+    {
+        $object = $this->getPointMock(
+            Dimension::DIMENSION_4D,
+            1234
+        );
+
+        $extractor = new Extractor();
+        $this->assertSame(1234, $extractor->extractSrid($object));
+    }
+
+    public function testExtractCoordinatesfromPoint()
     {
         $object = $this->getPointMock(
             Dimension::DIMENSION_4D,
@@ -54,19 +75,13 @@ class ExtractorTest  extends TestCase
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractPoint($object);
+        $coords = $extractor->extractCoordinatesfromPoint($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('coordinates', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1, $geometry['coordinates']['x']);
-        $this->assertSame(2, $geometry['coordinates']['y']);
-        $this->assertSame(3, $geometry['coordinates']['z']);
-        $this->assertSame(4, $geometry['coordinates']['m']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $coords);
+        $this->assertSame(1, $coords['x']);
+        $this->assertSame(2, $coords['y']);
+        $this->assertSame(3, $coords['z']);
+        $this->assertSame(4, $coords['m']);
     }
 
     public function testExtractLineString()
@@ -74,20 +89,15 @@ class ExtractorTest  extends TestCase
         $object = $this->getLineStringMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractLineString($object);
+        $array = $extractor->extractPointsFromLineString($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('points', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 
     public function testExtractPolygon()
@@ -95,20 +105,15 @@ class ExtractorTest  extends TestCase
         $object = $this->getPolygonMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractPolygon($object);
+        $array = $extractor->extractLineStringsFromPolygon($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('linestrings', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 
     public function testExtractMultiPoint()
@@ -116,20 +121,15 @@ class ExtractorTest  extends TestCase
         $object = $this->getMultiPointMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractMultiPoint($object);
+        $array = $extractor->extractPointsFromMultiPoint($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('points', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 
     public function testExtractMultiLineString()
@@ -137,20 +137,15 @@ class ExtractorTest  extends TestCase
         $object = $this->getMultiLineStringMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractMultiLineString($object);
+        $array = $extractor->extractLineStringsFromMultiLineString($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('linestrings', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 
     public function testExtractMultiPolygon()
@@ -158,20 +153,15 @@ class ExtractorTest  extends TestCase
         $object = $this->getMultiPolygonMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractMultiPolygon($object);
+        $array = $extractor->extractPolygonsFromMultiPolygon($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('polygons', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 
     public function testExtractGeometryCollection()
@@ -179,19 +169,14 @@ class ExtractorTest  extends TestCase
         $object = $this->getGeometryCollectionMock(
             Dimension::DIMENSION_4D,
             1234,
-            array()
+            array(1, 2, 3)
         );
 
         $extractor = new Extractor();
 
-        $geometry = $extractor->extractGeometryCollection($object);
+        $array = $extractor->extractGeometriesFromGeometryCollection($object);
 
-        $this->assertInternalType('array', $geometry);
-        $this->arrayHasKey('dimension', $geometry);
-        $this->arrayHasKey('geometries', $geometry);
-        $this->arrayHasKey('srid', $geometry);
-
-        $this->assertSame(Dimension::DIMENSION_4D, $geometry['dimension']);
-        $this->assertSame(1234, $geometry['srid']);
+        $this->assertInternalType('array', $array);
+        $this->assertSame(array(1, 2, 3), $array);
     }
 }

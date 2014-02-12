@@ -38,39 +38,102 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-    protected function getLineStringMock($dimension = null, $srid = null)
+    protected function getLineStringMock($dimension = null, $srid = null, array $points = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\LineString', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\LineString', $dimension, $srid);
+
+        if ($points) {
+            $mock
+                ->expects($this->any())
+                ->method('getPoints')
+                ->will($this->returnValue($points));
+        }
+
+        return $mock;
     }
 
-    protected function getLinearRingMock($dimension = null, $srid = null)
+    protected function getLinearRingMock($dimension = null, $srid = null, array $points = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\LinearRing', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\LinearRing', $dimension, $srid);
+
+        if ($points) {
+            $mock
+                ->expects($this->any())
+                ->method('getPoints')
+                ->will($this->returnValue($points));
+        }
+
+        return $mock;
     }
 
-    protected function getPolygonMock($dimension = null, $srid = null)
+    protected function getPolygonMock($dimension = null, $srid = null, array $lineStrings = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\Polygon', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\Polygon', $dimension, $srid);
+
+        if ($lineStrings) {
+            $mock
+                ->expects($this->any())
+                ->method('getLineStrings')
+                ->will($this->returnValue($lineStrings));
+        }
+
+        return $mock;
     }
 
-    protected function getMultiPointMock($dimension = null, $srid = null)
+    protected function getMultiPointMock($dimension = null, $srid = null, array $points = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiPoint', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiPoint', $dimension, $srid);
+
+        if ($points) {
+            $mock
+                ->expects($this->any())
+                ->method('getPoints')
+                ->will($this->returnValue($points));
+        }
+
+        return $mock;
     }
 
-    protected function getMultiLineStringMock($dimension = null, $srid = null)
+    protected function getMultiLineStringMock($dimension = null, $srid = null, array $lineStrings = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiLineString', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiLineString', $dimension, $srid);
+
+        if ($lineStrings) {
+            $mock
+                ->expects($this->any())
+                ->method('getLineStrings')
+                ->will($this->returnValue($lineStrings));
+        }
+
+        return $mock;
     }
 
-    protected function getMultiPolygonMock($dimension = null, $srid = null)
+    protected function getMultiPolygonMock($dimension = null, $srid = null, array $polygons = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiPolygon', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\MultiPolygon', $dimension, $srid);
+
+        if ($polygons) {
+            $mock
+                ->expects($this->any())
+                ->method('getPolygons')
+                ->will($this->returnValue($polygons));
+        }
+
+        return $mock;
     }
 
-    protected function getGeometryCollectionMock($dimension = null, $srid = null)
+    protected function getGeometryCollectionMock($dimension = null, $srid = null, array $geometries = null)
     {
-        return $this->getGeometryMockForClass('GeoIO\\Geometry\\GeometryCollection', $dimension, $srid);
+        $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\GeometryCollection', $dimension, $srid);
+
+        if ($geometries) {
+            $mock
+                ->expects($this->any())
+                ->method('getGeometries')
+                ->will($this->returnValue($geometries));
+        }
+
+        return $mock;
     }
 
     protected function getGeometryMockForClass($class, $dimension = null, $srid = null)
