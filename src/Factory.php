@@ -23,9 +23,9 @@ class Factory implements FactoryInterface
         return new LineString($dimension, $points, $srid);
     }
 
-    public function createPolygon($dimension, array $linestrings, $srid = null)
+    public function createPolygon($dimension, array $lineStrings, $srid = null)
     {
-        return new Polygon($dimension, $linestrings, $srid);
+        return new Polygon($dimension, $lineStrings, $srid);
     }
 
     public function createMultiPoint($dimension, array $points, $srid = null)
@@ -33,9 +33,9 @@ class Factory implements FactoryInterface
         return new MultiPoint($dimension, $points, $srid);
     }
 
-    public function createMultiLineString($dimension, array $linestrings, $srid = null)
+    public function createMultiLineString($dimension, array $lineStrings, $srid = null)
     {
-        return new MultiLineString($dimension, $linestrings, $srid);
+        return new MultiLineString($dimension, $lineStrings, $srid);
     }
 
     public function createMultiPolygon($dimension, array $polygons, $srid = null)
