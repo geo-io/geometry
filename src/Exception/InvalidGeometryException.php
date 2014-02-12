@@ -2,7 +2,7 @@
 
 namespace GeoIO\Geometry\Exception;
 
-    class InvalidGeometryException extends \InvalidArgumentException implements Exception
+class InvalidGeometryException extends \InvalidArgumentException implements Exception
 {
     public static function create($value)
     {
