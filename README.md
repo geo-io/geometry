@@ -3,12 +3,24 @@ Geo I/O Geometry
 
 [![Build Status](https://travis-ci.org/geo-io/geometry.png?branch=master)](https://travis-ci.org/geo-io/geometry)
 
-Basic geometric objects.
+Basic implementation of the standard OGC spatial data types defined in the
+[Simple Feature Access for SQL](http://www.opengeospatial.org/standards/sfs)
+specification, although without any kind of advanced functionalities such as
+geometric operations.
+
+It can be used as a default input/output for the Geo I/O geometric data
+representation parsers and generators.
+
+Supported types are Point, LineString, Polygon, MultiPoint, MultiLineString,
+MultiPolygon and GeometryCollection.
+
 
 Installation
 ------------
 
-Install [through composer](http://getcomposer.org).
+Install [through composer](http://getcomposer.org). Check the
+[packagist page](https://packagist.org/packages/geo-io/geometry) for all
+available versions.
 
 ```json
 {
