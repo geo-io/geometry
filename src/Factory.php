@@ -8,7 +8,7 @@ class Factory implements FactoryInterface
 {
     public function createPoint($dimension, array $coordinates, $srid = null)
     {
-        $coordinates = new Coordinates(
+        $coordinates = new Coordinate(
             $coordinates['x'],
             $coordinates['y'],
             $coordinates['z'],

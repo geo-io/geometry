@@ -2,14 +2,14 @@
 
 namespace GeoIO\Geometry;
 
-class CoordinatesTest extends TestCase
+class CoordinateTest extends TestCase
 {
     /**
      * @expectedException GeoIO\Geometry\Exception\InvalidCoordinateException
      */
     public function testConstructorShouldThrowExceptionForInvalidXCoordinate()
     {
-        new Coordinates('foo', 2);
+        new Coordinate('foo', 2);
     }
 
     /**
@@ -17,7 +17,7 @@ class CoordinatesTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForInvalidYCoordinate()
     {
-        new Coordinates(1, 'foo');
+        new Coordinate(1, 'foo');
     }
 
     /**
@@ -25,7 +25,7 @@ class CoordinatesTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForInvalidZCoordinate()
     {
-        new Coordinates(1, 2, 'foo');
+        new Coordinate(1, 2, 'foo');
     }
 
     /**
@@ -33,12 +33,12 @@ class CoordinatesTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForInvalidMCoordinate()
     {
-        new Coordinates(1, 2, 3, 'foo');
+        new Coordinate(1, 2, 3, 'foo');
     }
 
     public function testConstructorShouldAllowEmptyZAndMCoordinates()
     {
-        $coordinates = new Coordinates(1, 2);
+        $coordinates = new Coordinate(1, 2);
         $this->assertNull($coordinates->getZ());
         $this->assertNull($coordinates->getM());
     }

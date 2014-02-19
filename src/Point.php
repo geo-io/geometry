@@ -9,7 +9,7 @@ class Point extends BaseGeometry
 {
     private $coordinates;
 
-    public function __construct($dimension, Coordinates $coordinates = null, $srid = null)
+    public function __construct($dimension, Coordinate $coordinates = null, $srid = null)
     {
         $this->dimension = $dimension;
         $this->srid = $srid;

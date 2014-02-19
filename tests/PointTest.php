@@ -24,7 +24,7 @@ class PointTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForMissingZCoordinate()
     {
-        new Point(Dimension::DIMENSION_3DZ, new Coordinates(1, 2));
+        new Point(Dimension::DIMENSION_3DZ, new Coordinate(1, 2));
     }
 
     /**
@@ -32,7 +32,7 @@ class PointTest extends TestCase
      */
     public function testConstructorShouldThrowExceptionForMissingMCoordinate()
     {
-        new Point(Dimension::DIMENSION_3DM, new Coordinates(1, 2, 3));
+        new Point(Dimension::DIMENSION_3DM, new Coordinate(1, 2, 3));
     }
 
     public function testConstructorShouldAllowEmptyCoordinates()

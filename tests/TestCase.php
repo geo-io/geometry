@@ -9,7 +9,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $this->getGeometryMockForClass('GeoIO\\Geometry\\Geometry', $dimension, $srid);
     }
 
-    protected function getPointMock($dimension = null, $srid = null, Coordinates $coordinates = null)
+    protected function getPointMock($dimension = null, $srid = null, Coordinate $coordinates = null)
     {
         $mock = $this->getGeometryMockForClass('GeoIO\\Geometry\\Point', $dimension, $srid);
 
@@ -161,7 +161,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     protected function getCoordinatesMock()
     {
-        return $this->getMockBuilder('GeoIO\\Geometry\\Coordinates')
+        return $this->getMockBuilder('GeoIO\\Geometry\\Coordinate')
             ->disableOriginalConstructor()
             ->getMock();
     }
