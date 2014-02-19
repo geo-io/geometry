@@ -39,6 +39,18 @@ class FactoryTest  extends \PHPUnit_Framework_TestCase
         $this->assertSame(1234, $geometry->getSrid());
     }
 
+    public function testCreateLinearRing()
+    {
+        $factory = new Factory();
+
+        $geometry = $factory->createLinearRing(Dimension::DIMENSION_4D, array(
+        ), 1234);
+
+        $this->assertInstanceOf('GeoIO\Geometry\LinearRing', $geometry);
+        $this->assertSame(Dimension::DIMENSION_4D, $geometry->getDimension());
+        $this->assertSame(1234, $geometry->getSrid());
+    }
+
     public function testCreatePolygon()
     {
         $factory = new Factory();

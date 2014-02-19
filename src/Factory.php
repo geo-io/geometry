@@ -23,6 +23,11 @@ class Factory implements FactoryInterface
         return new LineString($dimension, $points, $srid);
     }
 
+    public function createLinearRing($dimension, array $points, $srid = null)
+    {
+        return new LinearRing($dimension, $points, $srid);
+    }
+
     public function createPolygon($dimension, array $lineStrings, $srid = null)
     {
         return new Polygon($dimension, $lineStrings, $srid);
