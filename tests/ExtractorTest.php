@@ -70,7 +70,7 @@ class ExtractorTest  extends TestCase
         $object = $this->getPointMock(
             Dimension::DIMENSION_4D,
             1234,
-            new Coordinate(1, 2, 3, 4)
+            new Coordinates(1, 2, 3, 4)
         );
 
         $extractor = new Extractor();

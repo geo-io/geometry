@@ -4,7 +4,7 @@ namespace GeoIO\Geometry;
 
 use GeoIO\Geometry\Exception\InvalidCoordinateException;
 
-class Coordinate
+class Coordinates
 {
     private $x;
     private $y;

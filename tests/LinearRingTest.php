@@ -64,10 +64,10 @@ class LinearRingTest extends TestCase
     public function testConstructorShouldThrowExceptionNotClosed()
     {
         $points = array(
-            $this->getPointMock(Dimension::DIMENSION_2D, null, new Coordinate(1, 2, 3, 4)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinate(5, 6, 7, 8)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinate(9, 10, 11, 12)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinate(1, 2, 3, 14))
+            $this->getPointMock(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
+            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(5, 6, 7, 8)),
+            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(9, 10, 11, 12)),
+            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(1, 2, 3, 14))
         );
 
         new LinearRing(Dimension::DIMENSION_2D, $points);
