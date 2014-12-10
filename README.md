@@ -1,7 +1,7 @@
 Geo I/O Geometry
 ================
 
-[![Build Status](https://travis-ci.org/geo-io/geometry.png?branch=master)](https://travis-ci.org/geo-io/geometry)
+[![Build Status](https://travis-ci.org/geo-io/geometry.svg?branch=master)](https://travis-ci.org/geo-io/geometry)
 [![Coverage Status](https://img.shields.io/coveralls/geo-io/geometry.svg)](https://coveralls.io/r/geo-io/geometry)
 
 Basic implementation of geometric objects which roughly follows the
