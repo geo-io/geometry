@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "geo-io/interface": "0.1.*@dev"
+        "geo-io/interface": "~1.0"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +24,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "1.0-dev"
         }
     }
 }

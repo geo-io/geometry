@@ -22,12 +22,8 @@ Install [through composer](http://getcomposer.org). Check the
 [packagist page](https://packagist.org/packages/geo-io/geometry) for all
 available versions.
 
-```json
-{
-    "require": {
-        "geo-io/geometry": "0.1.*@dev"
-    }
-}
+```bash
+composer require geo-io/geometry
 ```
 
 License
