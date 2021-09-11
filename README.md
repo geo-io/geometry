@@ -5,7 +5,7 @@ Geo I/O Geometry
 [![Coverage Status](https://coveralls.io/repos/geo-io/geometry/badge.svg?branch=main&service=github)](https://coveralls.io/github/geo-io/geometry?branch=main)
 
 Basic implementation of geometric objects which roughly follows the
-[Simple Feature Access for SQL](http://www.opengeospatial.org/standards/sfs)
+[Simple Feature Access for SQL](https://www.ogc.org/standards/sfs)
 specification, although without any kind of advanced functionalities such as
 geometric operations.
 
@@ -18,7 +18,7 @@ MultiPolygon and GeometryCollection.
 Installation
 --
 
-Install [through composer](http://getcomposer.org). Check the
+Install [through composer](https://getcomposer.org). Check the
 [packagist page](https://packagist.org/packages/geo-io/geometry) for all
 available versions.
 
