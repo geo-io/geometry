@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use function count;
 
-class MultiPoint extends BaseGeometry
+class MultiPoint implements Geometry
 {
+    use CommonMethods;
+
     /**
      * @var Point[]
      */

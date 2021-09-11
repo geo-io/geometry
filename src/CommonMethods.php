@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace GeoIO\Geometry;
 
-abstract class BaseGeometry implements Geometry
+trait CommonMethods
 {
-    protected string $dimension;
-    protected ?int $srid;
+    private string $dimension;
+    private ?int $srid;
 
     public function getDimension(): string
     {

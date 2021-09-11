@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use function count;
 
-class Polygon extends BaseGeometry
+class Polygon implements Geometry
 {
+    use CommonMethods;
+
     /**
      * @var LinearRing[]
      */

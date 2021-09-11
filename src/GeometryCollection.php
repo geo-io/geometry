@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use function count;
 
-class GeometryCollection extends BaseGeometry
+class GeometryCollection implements Geometry
 {
+    use CommonMethods;
+
     /**
      * @var Geometry[]
      */

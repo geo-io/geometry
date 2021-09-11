@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Coordinates;
 use GeoIO\Dimension;
 
-class Point extends BaseGeometry
+class Point implements Geometry
 {
+    use CommonMethods;
+
     private ?Coordinates $coordinates;
 
     public function __construct(

@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use function count;
 
-class MultiLineString extends BaseGeometry
+class MultiLineString implements Geometry
 {
+    use CommonMethods;
+
     /**
      * @var LineString[]
      */

@@ -7,8 +7,10 @@ namespace GeoIO\Geometry;
 use GeoIO\Dimension;
 use function count;
 
-class MultiPolygon extends BaseGeometry
+class MultiPolygon implements Geometry
 {
+    use CommonMethods;
+
     /**
      * @var Polygon[]
      */
