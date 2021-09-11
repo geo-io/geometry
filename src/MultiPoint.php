@@ -1,37 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
+
+use GeoIO\Dimension;
+use function count;
 
 class MultiPoint extends BaseGeometry
 {
-    private $points;
+    /**
+     * @var Point[]
+     */
+    private array $points;
 
-    public function __construct($dimension, array $points = array(), $srid = null)
-    {
+    public function __construct(
+        string $dimension,
+        ?int $srid = null,
+        Point ...$points,
+    ) {
+        Dimension::assert($dimension);
+
         $this->dimension = $dimension;
         $this->srid = $srid;
-
         $this->points = $points;
 
-        $this->assert();
+        $this->assertPoints();
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return 0 === count($this->points);
     }
 
-    public function getPoints()
+    /**
+     * @return Point[]
+     */
+    public function getPoints(): array
     {
         return $this->points;
     }
 
-    private function assert()
+    private function assertPoints(): void
     {
-        $this->assertDimension($this->getDimension());
-
         foreach ($this->getPoints() as $point) {
-            $this->assertGeometry($point, 'GeoIO\\Geometry\\Point');
+            $this->assertGeometry($point);
         }
     }
 }

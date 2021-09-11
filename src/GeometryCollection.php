@@ -1,45 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
-class GeometryCollection extends BaseGeometry implements \Countable, \IteratorAggregate
-{
-    private $geometries;
+use GeoIO\Dimension;
+use function count;
 
-    public function __construct($dimension, array $geometries = array(), $srid = null)
-    {
+class GeometryCollection extends BaseGeometry
+{
+    /**
+     * @var Geometry[]
+     */
+    private array $geometries;
+
+    public function __construct(
+        string $dimension,
+        ?int $srid = null,
+        Geometry ...$geometries,
+    ) {
+        Dimension::assert($dimension);
+
         $this->dimension = $dimension;
         $this->srid = $srid;
+        $this->geometries = $geometries;
 
-        $this->geometries = array_values($geometries);
-
-        $this->assert();
+        $this->assertGeometries();
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return 0 === count($this->geometries);
     }
 
-    public function getGeometries()
+    /**
+     * @return Geometry[]
+     */
+    public function getGeometries(): array
     {
         return $this->geometries;
     }
 
-    public function count()
+    private function assertGeometries(): void
     {
-        return count($this->geometries);
-    }
-
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->geometries);
-    }
-
-    private function assert()
-    {
-        $this->assertDimension($this->getDimension());
-
         foreach ($this->getGeometries() as $geometry) {
             $this->assertGeometry($geometry);
         }

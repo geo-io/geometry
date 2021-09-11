@@ -1,43 +1,103 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
+use GeoIO\Coordinates;
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\MissingCoordinateException;
+use PHPUnit\Framework\TestCase;
 
 class PointTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
+    public function testConstructorShouldThrowExceptionForMissingZCoordinate(): void
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\Point', 'GeoIO\Geometry\BaseGeometry'));
+        $this->expectException(MissingCoordinateException::class);
+
+        new Point(
+            Dimension::DIMENSION_3DZ,
+            4326,
+            new Coordinates(1, 2)
+        );
     }
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
+    public function testConstructorShouldThrowExceptionForMissingMCoordinate(): void
     {
-        new Point('foo');
+        $this->expectException(MissingCoordinateException::class);
+
+        new Point(
+            Dimension::DIMENSION_3DM,
+            4326,
+            new Coordinates(1, 2, 3)
+        );
     }
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MissingCoordinateException
-     */
-    public function testConstructorShouldThrowExceptionForMissingZCoordinate()
+    public function testConstruct2d(): void
     {
-        new Point(Dimension::DIMENSION_3DZ, new Coordinates(1, 2));
+        $point = new Point(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Coordinates(1, 2),
+        );
+
+        $this->assertEquals(1, $point->getX());
+        $this->assertEquals(2, $point->getY());
+        $this->assertNull($point->getZ());
+        $this->assertNull($point->getM());
     }
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MissingCoordinateException
-     */
-    public function testConstructorShouldThrowExceptionForMissingMCoordinate()
+    public function testConstruct3dz(): void
     {
-        new Point(Dimension::DIMENSION_3DM, new Coordinates(1, 2, 3));
+        $point = new Point(
+            Dimension::DIMENSION_3DZ,
+            4326,
+            new Coordinates(1, 2, 3),
+        );
+
+        $this->assertEquals(1, $point->getX());
+        $this->assertEquals(2, $point->getY());
+        $this->assertEquals(3, $point->getZ());
+        $this->assertNull($point->getM());
     }
 
-    public function testConstructorShouldAllowEmptyCoordinates()
+    public function testConstruct3dm(): void
     {
-        $polygon = new Point(Dimension::DIMENSION_2D);
-        $this->assertTrue($polygon->isEmpty());
+        $point = new Point(
+            Dimension::DIMENSION_3DM,
+            4326,
+            new Coordinates(1, 2, null, 4),
+        );
+
+        $this->assertEquals(1, $point->getX());
+        $this->assertEquals(2, $point->getY());
+        $this->assertNull($point->getZ());
+        $this->assertEquals(4, $point->getM());
+    }
+
+    public function testConstruct4d(): void
+    {
+        $point = new Point(
+            Dimension::DIMENSION_3DM,
+            4326,
+            new Coordinates(1, 2, 3, 4),
+        );
+
+        $this->assertEquals(1, $point->getX());
+        $this->assertEquals(2, $point->getY());
+        $this->assertEquals(3, $point->getZ());
+        $this->assertEquals(4, $point->getM());
+    }
+
+    public function testConstructorShouldAllowEmptySridAndCoordinates(): void
+    {
+        $point = new Point(Dimension::DIMENSION_2D);
+
+        $this->assertTrue($point->isEmpty());
+
+        $this->assertNull($point->getX());
+        $this->assertNull($point->getY());
+        $this->assertNull($point->getZ());
+        $this->assertNull($point->getM());
     }
 }

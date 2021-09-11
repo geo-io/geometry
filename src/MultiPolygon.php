@@ -1,37 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
+
+use GeoIO\Dimension;
+use function count;
 
 class MultiPolygon extends BaseGeometry
 {
-    private $polygons;
+    /**
+     * @var Polygon[]
+     */
+    private array $polygons;
 
-    public function __construct($dimension, array $polygons = array(), $srid = null)
-    {
+    public function __construct(
+        string $dimension,
+        ?int $srid = null,
+        Polygon ...$polygons,
+    ) {
+        Dimension::assert($dimension);
+
         $this->dimension = $dimension;
         $this->srid = $srid;
-
         $this->polygons = $polygons;
 
-        $this->assert();
+        $this->assertPolygons();
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return 0 === count($this->polygons);
     }
 
-    public function getPolygons()
+    /**
+     * @return Polygon[]
+     */
+    public function getPolygons(): array
     {
         return $this->polygons;
     }
 
-    private function assert()
+    private function assertPolygons(): void
     {
-        $this->assertDimension($this->getDimension());
-
         foreach ($this->getPolygons() as $polygon) {
-            $this->assertGeometry($polygon, 'GeoIO\\Geometry\\Polygon');
+            $this->assertGeometry($polygon);
         }
     }
 }

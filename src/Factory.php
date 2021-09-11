@@ -1,55 +1,138 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
+use GeoIO\Coordinates;
 use GeoIO\Factory as FactoryInterface;
+use Traversable;
 
 class Factory implements FactoryInterface
 {
-    public function createPoint($dimension, array $coordinates, $srid = null)
-    {
-        $coordinates = new Coordinates(
-            $coordinates['x'],
-            $coordinates['y'],
-            $coordinates['z'],
-            $coordinates['m']
+    public function createPoint(
+        string $dimension,
+        ?int $srid,
+        ?Coordinates $coordinates,
+    ): Geometry {
+        return new Point(
+            $dimension,
+            $srid,
+            $coordinates
         );
-
-        return new Point($dimension, $coordinates, $srid);
     }
 
-    public function createLineString($dimension, array $points, $srid = null)
-    {
-        return new LineString($dimension, $points, $srid);
+    public function createLineString(
+        string $dimension,
+        ?int $srid,
+        iterable $points,
+    ): LineString {
+        /** @var Point[] $points */
+        $points = self::iterableToArray($points);
+
+        return new LineString(
+            $dimension,
+            $srid,
+            ...$points
+        );
     }
 
-    public function createLinearRing($dimension, array $points, $srid = null)
-    {
-        return new LinearRing($dimension, $points, $srid);
+    public function createLinearRing(
+        string $dimension,
+        ?int $srid,
+        iterable $points,
+    ): LinearRing {
+        /** @var Point[] $points */
+        $points = self::iterableToArray($points);
+
+        return new LinearRing(
+            $dimension,
+            $srid,
+            ...$points
+        );
     }
 
-    public function createPolygon($dimension, array $lineStrings, $srid = null)
-    {
-        return new Polygon($dimension, $lineStrings, $srid);
+    public function createPolygon(
+        string $dimension,
+        ?int $srid,
+        iterable $lineStrings,
+    ): Polygon {
+        /** @var LineString[] $lineStrings */
+        $lineStrings = self::iterableToArray($lineStrings);
+
+        return new Polygon(
+            $dimension,
+            $srid,
+            ...$lineStrings
+        );
     }
 
-    public function createMultiPoint($dimension, array $points, $srid = null)
-    {
-        return new MultiPoint($dimension, $points, $srid);
+    public function createMultiPoint(
+        string $dimension,
+        ?int $srid,
+        iterable $points,
+    ): MultiPoint {
+        /** @var Point[] $points */
+        $points = self::iterableToArray($points);
+
+        return new MultiPoint(
+            $dimension,
+            $srid,
+            ...$points
+        );
     }
 
-    public function createMultiLineString($dimension, array $lineStrings, $srid = null)
-    {
-        return new MultiLineString($dimension, $lineStrings, $srid);
+    public function createMultiLineString(
+        string $dimension,
+        ?int $srid,
+        iterable $lineStrings,
+    ): MultiLineString {
+        /** @var LineString[] $lineStrings */
+        $lineStrings = self::iterableToArray($lineStrings);
+
+        return new MultiLineString(
+            $dimension,
+            $srid,
+            ...$lineStrings
+        );
     }
 
-    public function createMultiPolygon($dimension, array $polygons, $srid = null)
-    {
-        return new MultiPolygon($dimension, $polygons, $srid);
+    public function createMultiPolygon(
+        string $dimension,
+        ?int $srid,
+        iterable $polygons,
+    ): MultiPolygon {
+        /** @var Polygon[] $polygons */
+        $polygons = self::iterableToArray($polygons);
+
+        return new MultiPolygon(
+            $dimension,
+            $srid,
+            ...$polygons
+        );
     }
 
-    public function createGeometryCollection($dimension, array $geometries, $srid = null)
+    public function createGeometryCollection(
+        string $dimension,
+        ?int $srid,
+        iterable $geometries,
+    ): GeometryCollection {
+        /** @var Geometry[] $geometries */
+        $geometries = self::iterableToArray($geometries);
+
+        return new GeometryCollection(
+            $dimension,
+            $srid,
+            ...$geometries
+        );
+    }
+
+    private static function iterableToArray(iterable $iterable): array
     {
-        return new GeometryCollection($dimension, $geometries, $srid);
+        if ($iterable instanceof Traversable) {
+            return iterator_to_array($iterable);
+        }
+
+        return $iterable;
     }
 }

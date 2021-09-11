@@ -1,81 +1,77 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
+use GeoIO\Coordinates;
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException;
+use GeoIO\Geometry\Exception\LinearRingNotClosedException;
+use GeoIO\Geometry\Exception\MixedDimensionalityException;
+use GeoIO\Geometry\Exception\MixedSridsException;
+use PHPUnit\Framework\TestCase;
 
 class LinearRingTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
+    public function testConstructorShouldRequireAtLeast3Positions(): void
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LinearRing', 'GeoIO\Geometry\BaseGeometry'));
-    }
+        $this->expectException(InsufficientNumberOfGeometriesException::class);
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryException
-     */
-    public function testConstructorShouldRequireArrayOfGeometryObjects()
-    {
-        new LinearRing(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass(), new \stdClass(), new \stdClass()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryTypeException
-     */
-    public function testConstructorShouldRequireArrayOfPointObjects()
-    {
-        new LinearRing(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock(), $this->getGeometryMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException
-     */
-    public function testConstructorShouldRequireAtLeast3Positions()
-    {
-        new LinearRing(Dimension::DIMENSION_2D, array($this->getPointMock(Dimension::DIMENSION_2D), $this->getPointMock(Dimension::DIMENSION_2D)));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
-    {
-        new LinearRing('foo');
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MixedDimensionalityException
-     */
-    public function testConstructorShouldThrowExceptionForMixedDimensionality()
-    {
-        $points = array(
-            $this->getPointMock(Dimension::DIMENSION_2D),
-            $this->getPointMock(Dimension::DIMENSION_2D),
-            $this->getPointMock(Dimension::DIMENSION_2D),
-            $this->getPointMock(Dimension::DIMENSION_4D)
+        new LinearRing(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D),
         );
-
-        new LinearRing(Dimension::DIMENSION_2D, $points);
     }
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\LinearRingNotClosedException
-     */
-    public function testConstructorShouldThrowExceptionNotClosed()
+    public function testConstructorShouldThrowExceptionForMixedDimensionality(): void
     {
-        $points = array(
-            $this->getPointMock(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(5, 6, 7, 8)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(9, 10, 11, 12)),
-            $this->getPointMock(Dimension::DIMENSION_2D, null,new Coordinates(1, 2, 3, 14))
-        );
+        $this->expectException(MixedDimensionalityException::class);
 
-        new LinearRing(Dimension::DIMENSION_2D, $points);
+        new LinearRing(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_4D, 4326),
+        );
     }
 
-    public function testConstructorShouldAllowEmptyPoints()
+    public function testConstructorShouldThrowExceptionForMixedSrids(): void
+    {
+        $this->expectException(MixedSridsException::class);
+
+        new LinearRing(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 1234),
+            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D),
+        );
+    }
+
+    public function testConstructorShouldThrowExceptionNotClosed(): void
+    {
+        $this->expectException(LinearRingNotClosedException::class);
+
+        new LinearRing(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
+            new Point(Dimension::DIMENSION_2D, null, new Coordinates(5, 6, 7, 8)),
+            new Point(Dimension::DIMENSION_2D, null, new Coordinates(9, 10, 11, 12)),
+            new Point(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 14)),
+        );
+    }
+
+    public function testConstructorShouldAllowEmptySridAndPoints(): void
     {
         $lineString = new LinearRing(Dimension::DIMENSION_2D);
+
         $this->assertTrue($lineString->isEmpty());
     }
 }

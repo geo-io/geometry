@@ -1,86 +1,152 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
+use GeoIO\Coordinates;
 use GeoIO\Extractor as ExtractorInterface;
 use GeoIO\Geometry\Exception\InvalidGeometryException;
+use GeoIO\GeometryType;
 
 class Extractor implements ExtractorInterface
 {
-    public function supports($geometry)
+    public function supports(mixed $geometry): bool
     {
         return $geometry instanceof Geometry;
     }
 
-    public function extractType($geometry)
+    public function extractType(mixed $geometry): string
     {
-        switch (true) {
-            case $geometry instanceof Point:
-                return ExtractorInterface::TYPE_POINT;
-            case $geometry instanceof LineString:
-                return ExtractorInterface::TYPE_LINESTRING;
-            case $geometry instanceof Polygon:
-                return ExtractorInterface::TYPE_POLYGON;
-            case $geometry instanceof MultiPoint:
-                return ExtractorInterface::TYPE_MULTIPOINT;
-            case $geometry instanceof MultiLineString:
-                return ExtractorInterface::TYPE_MULTILINESTRING;
-            case $geometry instanceof MultiPolygon:
-                return ExtractorInterface::TYPE_MULTIPOLYGON;
-            case $geometry instanceof GeometryCollection:
-                return ExtractorInterface::TYPE_GEOMETRYCOLLECTION;
-            default:
-                throw InvalidGeometryException::create($geometry);
-        }
+        return match (true) {
+            $geometry instanceof Point => GeometryType::POINT,
+            $geometry instanceof LineString => GeometryType::LINESTRING,
+            $geometry instanceof Polygon => GeometryType::POLYGON,
+            $geometry instanceof MultiPoint => GeometryType::MULTIPOINT,
+            $geometry instanceof MultiLineString => GeometryType::MULTILINESTRING,
+            $geometry instanceof MultiPolygon => GeometryType::MULTIPOLYGON,
+            $geometry instanceof GeometryCollection => GeometryType::GEOMETRYCOLLECTION,
+            default => throw InvalidGeometryException::create($geometry),
+        };
     }
 
-    public function extractDimension($geometry)
+    public function extractDimension(mixed $geometry): string
     {
+        if (!$geometry instanceof Geometry) {
+            throw InvalidGeometryException::createForWrongType(
+                Geometry::class,
+                $geometry,
+            );
+        }
+
         return $geometry->getDimension();
     }
 
-    public function extractSrid($geometry)
+    public function extractSrid(mixed $geometry): ?int
     {
+        if (!$geometry instanceof Geometry) {
+            throw InvalidGeometryException::createForWrongType(
+                Geometry::class,
+                $geometry,
+            );
+        }
+
         return $geometry->getSrid();
     }
 
-    public function extractCoordinatesFromPoint($point)
+    public function extractCoordinatesFromPoint(mixed $point): ?Coordinates
     {
-        return array(
-            'x' => $point->getX(),
-            'y' => $point->getY(),
-            'z' => $point->getZ(),
-            'm' => $point->getM()
+        if (!$point instanceof Point) {
+            throw InvalidGeometryException::createForWrongType(
+                Point::class,
+                $point,
+            );
+        }
+
+        $x = $point->getX();
+        $y = $point->getY();
+
+        if (null === $x || null === $y) {
+            return null;
+        }
+
+        return new Coordinates(
+            x: $x,
+            y: $y,
+            z: $point->getZ(),
+            m: $point->getM(),
         );
     }
 
-    public function extractPointsFromLineString($lineString)
+    public function extractPointsFromLineString(mixed $lineString): iterable
     {
+        if (!$lineString instanceof LineString) {
+            throw InvalidGeometryException::createForWrongType(
+                LineString::class,
+                $lineString,
+            );
+        }
+
         return $lineString->getPoints();
     }
 
-    public function extractLineStringsFromPolygon($polygon)
+    public function extractLineStringsFromPolygon(mixed $polygon): iterable
     {
+        if (!$polygon instanceof Polygon) {
+            throw InvalidGeometryException::createForWrongType(
+                Polygon::class,
+                $polygon,
+            );
+        }
+
         return $polygon->getLineStrings();
     }
 
-    public function extractPointsFromMultiPoint($multiPoint)
+    public function extractPointsFromMultiPoint(mixed $multiPoint): iterable
     {
+        if (!$multiPoint instanceof MultiPoint) {
+            throw InvalidGeometryException::createForWrongType(
+                MultiPoint::class,
+                $multiPoint,
+            );
+        }
+
         return $multiPoint->getPoints();
     }
 
-    public function extractLineStringsFromMultiLineString($multiLineString)
+    public function extractLineStringsFromMultiLineString(mixed $multiLineString): iterable
     {
+        if (!$multiLineString instanceof MultiLineString) {
+            throw InvalidGeometryException::createForWrongType(
+                MultiLineString::class,
+                $multiLineString,
+            );
+        }
+
         return $multiLineString->getLineStrings();
     }
 
-    public function extractPolygonsFromMultiPolygon($multiPolygon)
+    public function extractPolygonsFromMultiPolygon(mixed $multiPolygon): iterable
     {
+        if (!$multiPolygon instanceof MultiPolygon) {
+            throw InvalidGeometryException::createForWrongType(
+                MultiPolygon::class,
+                $multiPolygon,
+            );
+        }
+
         return $multiPolygon->getPolygons();
     }
 
-    public function extractGeometriesFromGeometryCollection($geometryCollection)
+    public function extractGeometriesFromGeometryCollection(mixed $geometryCollection): iterable
     {
+        if (!$geometryCollection instanceof GeometryCollection) {
+            throw InvalidGeometryException::createForWrongType(
+                GeometryCollection::class,
+                $geometryCollection,
+            );
+        }
+
         return $geometryCollection->getGeometries();
     }
 }

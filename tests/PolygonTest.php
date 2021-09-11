@@ -1,55 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\MixedDimensionalityException;
+use GeoIO\Geometry\Exception\MixedSridsException;
+use PHPUnit\Framework\TestCase;
 
 class PolygonTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
+    public function testConstructorShouldThrowExceptionForMixedDimensionality(): void
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\Polygon', 'GeoIO\Geometry\BaseGeometry'));
-    }
+        $this->expectException(MixedDimensionalityException::class);
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryException
-     */
-    public function testConstructorShouldRequireArrayOfGeometryObjects()
-    {
-        new Polygon(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryTypeException
-     */
-    public function testConstructorShouldRequireArrayOfLineStringObjects()
-    {
-        new Polygon(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
-    {
-        new Polygon('foo');
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MixedDimensionalityException
-     */
-    public function testConstructorShouldThrowExceptionForMixedDimensionality()
-    {
-        $lineStrings = array(
-             $this->getLinearRingMock(Dimension::DIMENSION_4D)
+        new Polygon(
+            Dimension::DIMENSION_2D,
+            4326,
+            new LinearRing(Dimension::DIMENSION_4D),
         );
-
-        new Polygon(Dimension::DIMENSION_2D, $lineStrings);
     }
 
-    public function testConstructorShouldAllowEmptyLineStrings()
+    public function testConstructorShouldThrowExceptionForMixedSrids(): void
+    {
+        $this->expectException(MixedSridsException::class);
+
+        new Polygon(
+            Dimension::DIMENSION_2D,
+            4326,
+            new LinearRing(Dimension::DIMENSION_2D, 1234),
+        );
+    }
+
+    public function testConstructorShouldAllowEmptyLineStrings(): void
     {
         $polygon = new Polygon(Dimension::DIMENSION_2D);
+
         $this->assertTrue($polygon->isEmpty());
     }
 }

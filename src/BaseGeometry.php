@@ -1,52 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
-use GeoIO\Dimension;
-use GeoIO\Geometry\Exception\InvalidDimensionException;
-use GeoIO\Geometry\Exception\InvalidGeometryException;
-use GeoIO\Geometry\Exception\InvalidGeometryTypeException;
 use GeoIO\Geometry\Exception\MixedDimensionalityException;
 use GeoIO\Geometry\Exception\MixedSridsException;
 
 abstract class BaseGeometry implements Geometry
 {
-    protected $dimension;
-    protected $srid;
+    protected string $dimension;
+    protected ?int $srid;
 
-    public function getDimension()
+    public function getDimension(): string
     {
         return $this->dimension;
     }
 
-    public function getSrid()
+    public function getSrid(): ?int
     {
         return $this->srid;
     }
 
-    protected function assertDimension($dimension)
+    protected function assertGeometry(Geometry $geometry): void
     {
-        switch ($dimension) {
-            case Dimension::DIMENSION_4D:
-            case Dimension::DIMENSION_3DZ:
-            case Dimension::DIMENSION_3DM:
-            case Dimension::DIMENSION_2D:
-                break;
-            default:
-                throw InvalidDimensionException::create($dimension);
-        }
-    }
-
-    protected function assertGeometry($geometry, $type = null)
-    {
-        if (!$geometry instanceof Geometry) {
-            throw InvalidGeometryException::create($geometry);
-        }
-
-        if (null !== $type && !$geometry instanceof $type) {
-            throw InvalidGeometryTypeException::create($type, $geometry);
-        }
-
         if ($geometry->getDimension() !== $this->getDimension()) {
             throw MixedDimensionalityException::create($this, $geometry);
         }

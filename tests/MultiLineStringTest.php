@@ -1,56 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\MixedDimensionalityException;
+use GeoIO\Geometry\Exception\MixedSridsException;
+use PHPUnit\Framework\TestCase;
 
 class MultiLineStringTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
-    {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiLineString', 'GeoIO\Geometry\BaseGeometry'));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryException
-     */
-    public function testConstructorShouldRequireArrayOfGeometryObjects()
-    {
-        new MultiLineString(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryTypeException
-     */
-    public function testConstructorShouldRequireArrayOfLineStringObjects()
-    {
-        new MultiLineString(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
-    {
-        new MultiLineString('foo');
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MixedDimensionalityException
-     */
     public function testConstructorShouldThrowExceptionForMixedDimensionality()
     {
-        $points = array(
-            $this->getLineStringMock(Dimension::DIMENSION_2D),
-            $this->getLineStringMock(Dimension::DIMENSION_4D)
-        );
+        $this->expectException(MixedDimensionalityException::class);
 
-        new MultiLineString(Dimension::DIMENSION_2D, $points);
+        new MultiLineString(
+            Dimension::DIMENSION_2D,
+            4326,
+            new LineString(Dimension::DIMENSION_4D),
+        );
+    }
+
+    public function testConstructorShouldThrowExceptionForMixedSrids(): void
+    {
+        $this->expectException(MixedSridsException::class);
+
+        new MultiLineString(
+            Dimension::DIMENSION_2D,
+            4326,
+            new LineString(Dimension::DIMENSION_2D, 1234),
+        );
     }
 
     public function testConstructorShouldAllowEmptyLineStrings()
     {
         $lineString = new MultiLineString(Dimension::DIMENSION_2D);
+
         $this->assertTrue($lineString->isEmpty());
     }
 }

@@ -1,37 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
+
+use GeoIO\Dimension;
+use function count;
 
 class Polygon extends BaseGeometry
 {
-    private $lineStrings;
+    /**
+     * @var LineString[]
+     */
+    private array $lineStrings;
 
-    public function __construct($dimension, array $lineStrings = array(), $srid = null)
-    {
+    public function __construct(
+        string $dimension,
+        ?int $srid = null,
+        LineString ...$lineStrings,
+    ) {
+        Dimension::assert($dimension);
+
         $this->dimension = $dimension;
         $this->srid = $srid;
-
         $this->lineStrings = $lineStrings;
 
-        $this->assert();
+        $this->assertLineStrings();
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return 0 === count($this->lineStrings);
     }
 
-    public function getLineStrings()
+    /**
+     * @return LineString[]
+     */
+    public function getLineStrings(): array
     {
         return $this->lineStrings;
     }
 
-    private function assert()
+    private function assertLineStrings(): void
     {
-        $this->assertDimension($this->getDimension());
-
         foreach ($this->getLineStrings() as $lineString) {
-            $this->assertGeometry($lineString, 'GeoIO\\Geometry\\LinearRing');
+            $this->assertGeometry($lineString);
         }
     }
 }

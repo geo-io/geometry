@@ -1,20 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
 use GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException;
 use GeoIO\Geometry\Exception\LinearRingNotClosedException;
+use function count;
 
 class LinearRing extends LineString
 {
-    public function __construct($dimension, array $points = array(), $srid = null)
-    {
-        parent::__construct($dimension, $points, $srid);
+    public function __construct(
+        string $dimension,
+        ?int $srid = null,
+        Point ...$points,
+    ) {
+        parent::__construct($dimension, $srid, ...$points);
 
-        $this->assert();
+        $this->assertPoints();
     }
 
-    private function assert()
+    private function assertPoints(): void
     {
         $points = $this->getPoints();
 
@@ -31,11 +37,15 @@ class LinearRing extends LineString
         $lastPoint = end($points);
         $firstPoint = reset($points);
 
-        if ($lastPoint && $firstPoint &&
-            ($lastPoint->getX() !== $firstPoint->getX() ||
-             $lastPoint->getY() !== $firstPoint->getY() ||
-             $lastPoint->getZ() !== $firstPoint->getZ() ||
-             $lastPoint->getM() !== $firstPoint->getM())) {
+        if ($lastPoint &&
+            $firstPoint &&
+            (
+                $lastPoint->getX() !== $firstPoint->getX() ||
+                 $lastPoint->getY() !== $firstPoint->getY() ||
+                 $lastPoint->getZ() !== $firstPoint->getZ() ||
+                 $lastPoint->getM() !== $firstPoint->getM()
+            )
+        ) {
             throw LinearRingNotClosedException::create();
         }
     }

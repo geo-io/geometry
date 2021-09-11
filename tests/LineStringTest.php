@@ -1,64 +1,56 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException;
+use GeoIO\Geometry\Exception\MixedDimensionalityException;
+use GeoIO\Geometry\Exception\MixedSridsException;
+use PHPUnit\Framework\TestCase;
 
 class LineStringTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
+    public function testConstructorShouldRequireAtLeastTwoPositions(): void
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\LineString', 'GeoIO\Geometry\BaseGeometry'));
-    }
+        $this->expectException(InsufficientNumberOfGeometriesException::class);
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryException
-     */
-    public function testConstructorShouldRequireArrayOfGeometryObjects()
-    {
-        new LineString(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryTypeException
-     */
-    public function testConstructorShouldRequireArrayOfPointObjects()
-    {
-        new LineString(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException
-     */
-    public function testConstructorShouldRequireAtLeastTwoPositions()
-    {
-        new LineString(Dimension::DIMENSION_2D, array($this->getPointMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
-    {
-        new LineString('foo');
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MixedDimensionalityException
-     */
-    public function testConstructorShouldThrowExceptionForMixedDimensionality()
-    {
-        $points = array(
-            $this->getPointMock(Dimension::DIMENSION_2D),
-            $this->getPointMock(Dimension::DIMENSION_4D)
+        new LineString(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 4326),
         );
-
-        new LineString(Dimension::DIMENSION_2D, $points);
     }
 
-    public function testConstructorShouldAllowEmptyPoints()
+    public function testConstructorShouldThrowExceptionForMixedDimensionality(): void
+    {
+        $this->expectException(MixedDimensionalityException::class);
+
+        new LineString(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_4D, 4326),
+        );
+    }
+
+    public function testConstructorShouldThrowExceptionForMixedSrids(): void
+    {
+        $this->expectException(MixedSridsException::class);
+
+        new LinearRing(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 1234),
+            new Point(Dimension::DIMENSION_2D),
+        );
+    }
+
+    public function testConstructorShouldAllowEmptySridAndPoints(): void
     {
         $lineString = new LineString(Dimension::DIMENSION_2D);
+
         $this->assertTrue($lineString->isEmpty());
     }
 }

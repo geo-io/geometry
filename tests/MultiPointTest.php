@@ -1,56 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GeoIO\Geometry;
 
 use GeoIO\Dimension;
+use GeoIO\Geometry\Exception\MixedDimensionalityException;
+use GeoIO\Geometry\Exception\MixedSridsException;
+use PHPUnit\Framework\TestCase;
 
 class MultiPointTest extends TestCase
 {
-    public function testIsSubclassOfGeometry()
+    public function testConstructorShouldThrowExceptionForMixedDimensionality(): void
     {
-        $this->assertTrue(is_subclass_of('GeoIO\Geometry\MultiPoint', 'GeoIO\Geometry\BaseGeometry'));
-    }
+        $this->expectException(MixedDimensionalityException::class);
 
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryException
-     */
-    public function testConstructorShouldRequireArrayOfGeometryObjects()
-    {
-        new MultiPoint(Dimension::DIMENSION_2D, array(new \stdClass(), new \stdClass()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidGeometryTypeException
-     */
-    public function testConstructorShouldRequireArrayOfPointObjects()
-    {
-        new MultiPoint(Dimension::DIMENSION_2D, array($this->getGeometryMock(), $this->getGeometryMock()));
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\InvalidDimensionException
-     */
-    public function testConstructorShouldThrowExceptionForInvalidDimension()
-    {
-        new MultiPoint('foo');
-    }
-
-    /**
-     * @expectedException GeoIO\Geometry\Exception\MixedDimensionalityException
-     */
-    public function testConstructorShouldThrowExceptionForMixedDimensionality()
-    {
-        $points = array(
-            $this->getPointMock(Dimension::DIMENSION_2D),
-            $this->getPointMock(Dimension::DIMENSION_4D)
+        new MultiPoint(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_4D),
         );
-
-        new MultiPoint(Dimension::DIMENSION_2D, $points);
     }
 
-    public function testConstructorShouldAllowEmptyPoints()
+    public function testConstructorShouldThrowExceptionForMixedSrids(): void
+    {
+        $this->expectException(MixedSridsException::class);
+
+        new MultiPoint(
+            Dimension::DIMENSION_2D,
+            4326,
+            new Point(Dimension::DIMENSION_2D, 1234),
+            new Point(Dimension::DIMENSION_4D),
+        );
+    }
+
+    public function testConstructorShouldAllowEmptySridAndPoints(): void
     {
         $lineString = new MultiPoint(Dimension::DIMENSION_2D);
+
         $this->assertTrue($lineString->isEmpty());
     }
 }
