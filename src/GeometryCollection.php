@@ -25,7 +25,7 @@ class GeometryCollection extends BaseGeometry
         $this->srid = $srid;
         $this->geometries = $geometries;
 
-        $this->assertGeometries();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -39,12 +39,5 @@ class GeometryCollection extends BaseGeometry
     public function getGeometries(): array
     {
         return $this->geometries;
-    }
-
-    private function assertGeometries(): void
-    {
-        foreach ($this->getGeometries() as $geometry) {
-            $this->assertGeometry($geometry);
-        }
     }
 }

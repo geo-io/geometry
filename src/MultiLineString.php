@@ -25,7 +25,7 @@ class MultiLineString extends BaseGeometry
         $this->srid = $srid;
         $this->lineStrings = $lineStrings;
 
-        $this->assertLineStrings();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -39,12 +39,5 @@ class MultiLineString extends BaseGeometry
     public function getLineStrings(): array
     {
         return $this->lineStrings;
-    }
-
-    private function assertLineStrings(): void
-    {
-        foreach ($this->getLineStrings() as $lineString) {
-            $this->assertGeometry($lineString);
-        }
     }
 }

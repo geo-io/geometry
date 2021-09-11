@@ -21,8 +21,8 @@ class LinearRingTest extends TestCase
         new LinearRing(
             Dimension::DIMENSION_2D,
             4326,
-            new Point(Dimension::DIMENSION_2D),
-            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_2D, 4326),
         );
     }
 
@@ -32,11 +32,11 @@ class LinearRingTest extends TestCase
 
         new LinearRing(
             Dimension::DIMENSION_2D,
-            4326,
-            new Point(Dimension::DIMENSION_2D, 4326),
-            new Point(Dimension::DIMENSION_2D, 4326),
-            new Point(Dimension::DIMENSION_2D, 4326),
-            new Point(Dimension::DIMENSION_4D, 4326),
+            null,
+            new Point(Dimension::DIMENSION_2D, null),
+            new Point(Dimension::DIMENSION_2D, null),
+            new Point(Dimension::DIMENSION_2D, null),
+            new Point(Dimension::DIMENSION_4D, null),
         );
     }
 
@@ -48,9 +48,9 @@ class LinearRingTest extends TestCase
             Dimension::DIMENSION_2D,
             4326,
             new Point(Dimension::DIMENSION_2D, 1234),
-            new Point(Dimension::DIMENSION_2D),
-            new Point(Dimension::DIMENSION_2D),
-            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_2D, 4326),
+            new Point(Dimension::DIMENSION_2D, 4326),
         );
     }
 
@@ -61,10 +61,10 @@ class LinearRingTest extends TestCase
         new LinearRing(
             Dimension::DIMENSION_2D,
             4326,
-            new Point(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 4)),
-            new Point(Dimension::DIMENSION_2D, null, new Coordinates(5, 6, 7, 8)),
-            new Point(Dimension::DIMENSION_2D, null, new Coordinates(9, 10, 11, 12)),
-            new Point(Dimension::DIMENSION_2D, null, new Coordinates(1, 2, 3, 14)),
+            new Point(Dimension::DIMENSION_2D, 4326, new Coordinates(1, 2, 3, 4)),
+            new Point(Dimension::DIMENSION_2D, 4326, new Coordinates(5, 6, 7, 8)),
+            new Point(Dimension::DIMENSION_2D, 4326, new Coordinates(9, 10, 11, 12)),
+            new Point(Dimension::DIMENSION_2D, 4326, new Coordinates(1, 2, 3, 14)),
         );
     }
 

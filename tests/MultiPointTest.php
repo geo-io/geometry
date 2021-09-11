@@ -17,9 +17,9 @@ class MultiPointTest extends TestCase
 
         new MultiPoint(
             Dimension::DIMENSION_2D,
-            4326,
-            new Point(Dimension::DIMENSION_2D),
-            new Point(Dimension::DIMENSION_4D),
+            null,
+            new Point(Dimension::DIMENSION_2D, null),
+            new Point(Dimension::DIMENSION_4D, null),
         );
     }
 
@@ -31,7 +31,7 @@ class MultiPointTest extends TestCase
             Dimension::DIMENSION_2D,
             4326,
             new Point(Dimension::DIMENSION_2D, 1234),
-            new Point(Dimension::DIMENSION_4D),
+            new Point(Dimension::DIMENSION_2D, 4326),
         );
     }
 

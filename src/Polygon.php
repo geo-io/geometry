@@ -10,41 +10,34 @@ use function count;
 class Polygon extends BaseGeometry
 {
     /**
-     * @var LineString[]
+     * @var LinearRing[]
      */
-    private array $lineStrings;
+    private array $linearRings;
 
     public function __construct(
         string $dimension,
         ?int $srid = null,
-        LineString ...$lineStrings,
+        LinearRing ...$lineStrings,
     ) {
         Dimension::assert($dimension);
 
         $this->dimension = $dimension;
         $this->srid = $srid;
-        $this->lineStrings = $lineStrings;
+        $this->linearRings = $lineStrings;
 
-        $this->assertLineStrings();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
     {
-        return 0 === count($this->lineStrings);
+        return 0 === count($this->linearRings);
     }
 
     /**
-     * @return LineString[]
+     * @return LinearRing[]
      */
-    public function getLineStrings(): array
+    public function getLinearRings(): array
     {
-        return $this->lineStrings;
-    }
-
-    private function assertLineStrings(): void
-    {
-        foreach ($this->getLineStrings() as $lineString) {
-            $this->assertGeometry($lineString);
-        }
+        return $this->linearRings;
     }
 }

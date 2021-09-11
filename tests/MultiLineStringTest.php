@@ -17,8 +17,8 @@ class MultiLineStringTest extends TestCase
 
         new MultiLineString(
             Dimension::DIMENSION_2D,
-            4326,
-            new LineString(Dimension::DIMENSION_4D),
+            null,
+            new LineString(Dimension::DIMENSION_4D, null),
         );
     }
 

@@ -20,6 +20,7 @@ class Extractor implements ExtractorInterface
     {
         return match (true) {
             $geometry instanceof Point => GeometryType::POINT,
+            $geometry instanceof LinearRing => GeometryType::LINESTRING,
             $geometry instanceof LineString => GeometryType::LINESTRING,
             $geometry instanceof Polygon => GeometryType::POLYGON,
             $geometry instanceof MultiPoint => GeometryType::MULTIPOINT,
@@ -99,7 +100,7 @@ class Extractor implements ExtractorInterface
             );
         }
 
-        return $polygon->getLineStrings();
+        return $polygon->getLinearRings();
     }
 
     public function extractPointsFromMultiPoint(mixed $multiPoint): iterable

@@ -17,9 +17,9 @@ class MultiPolygonTest extends TestCase
 
         new MultiPolygon(
             Dimension::DIMENSION_2D,
-            4326,
-            new Polygon(Dimension::DIMENSION_2D),
-            new Polygon(Dimension::DIMENSION_4D),
+            null,
+            new Polygon(Dimension::DIMENSION_2D, null),
+            new Polygon(Dimension::DIMENSION_4D, null),
         );
     }
 
@@ -31,7 +31,7 @@ class MultiPolygonTest extends TestCase
             Dimension::DIMENSION_2D,
             4326,
             new Polygon(Dimension::DIMENSION_2D, 1234),
-            new Polygon(Dimension::DIMENSION_4D),
+            new Polygon(Dimension::DIMENSION_2D, 4326),
         );
     }
 

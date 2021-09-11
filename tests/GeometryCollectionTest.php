@@ -17,8 +17,8 @@ class GeometryCollectionTest extends TestCase
 
         new GeometryCollection(
             Dimension::DIMENSION_2D,
-            4326,
-            new Point(Dimension::DIMENSION_4D),
+            null,
+            new Point(Dimension::DIMENSION_4D, null),
         );
     }
 

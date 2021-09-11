@@ -57,7 +57,7 @@ class Factory implements FactoryInterface
         ?int $srid,
         iterable $lineStrings,
     ): Polygon {
-        /** @var LineString[] $lineStrings */
+        /** @var LinearRing[] $lineStrings */
         $lineStrings = self::iterableToArray($lineStrings);
 
         return new Polygon(

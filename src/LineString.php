@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace GeoIO\Geometry;
 
 use GeoIO\Dimension;
-use GeoIO\Geometry\Exception\InsufficientNumberOfGeometriesException;
 use function count;
 
 class LineString extends BaseGeometry
@@ -26,7 +25,7 @@ class LineString extends BaseGeometry
         $this->srid = $srid;
         $this->points = $points;
 
-        $this->assertPoints();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -40,24 +39,5 @@ class LineString extends BaseGeometry
     public function getPoints(): array
     {
         return $this->points;
-    }
-
-    private function assertPoints(): void
-    {
-        $points = $this->getPoints();
-
-        $count = count($points);
-
-        if (1 === $count) {
-            throw InsufficientNumberOfGeometriesException::create(
-                2,
-                $count,
-                'Point'
-            );
-        }
-
-        foreach ($points as $point) {
-            $this->assertGeometry($point);
-        }
     }
 }

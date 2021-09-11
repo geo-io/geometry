@@ -17,8 +17,8 @@ class PolygonTest extends TestCase
 
         new Polygon(
             Dimension::DIMENSION_2D,
-            4326,
-            new LinearRing(Dimension::DIMENSION_4D),
+            null,
+            new LinearRing(Dimension::DIMENSION_4D, null),
         );
     }
 

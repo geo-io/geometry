@@ -25,7 +25,7 @@ class MultiPoint extends BaseGeometry
         $this->srid = $srid;
         $this->points = $points;
 
-        $this->assertPoints();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -39,12 +39,5 @@ class MultiPoint extends BaseGeometry
     public function getPoints(): array
     {
         return $this->points;
-    }
-
-    private function assertPoints(): void
-    {
-        foreach ($this->getPoints() as $point) {
-            $this->assertGeometry($point);
-        }
     }
 }

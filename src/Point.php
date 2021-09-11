@@ -6,7 +6,6 @@ namespace GeoIO\Geometry;
 
 use GeoIO\Coordinates;
 use GeoIO\Dimension;
-use GeoIO\Geometry\Exception\MissingCoordinateException;
 
 class Point extends BaseGeometry
 {
@@ -23,7 +22,7 @@ class Point extends BaseGeometry
         $this->srid = $srid;
         $this->coordinates = $coordinates;
 
-        $this->assertCoordinates();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -65,40 +64,5 @@ class Point extends BaseGeometry
         }
 
         return $this->coordinates->m;
-    }
-
-    private function assertCoordinates(): void
-    {
-        if (
-            (
-                Dimension::DIMENSION_4D === $this->dimension ||
-                Dimension::DIMENSION_3DZ === $this->dimension
-            ) &&
-            (
-                null !== $this->coordinates &&
-                null === $this->coordinates->z
-            )
-        ) {
-            throw MissingCoordinateException::create(
-                'Z',
-                $this->dimension
-            );
-        }
-
-        if (
-            (
-                Dimension::DIMENSION_4D === $this->dimension ||
-                Dimension::DIMENSION_3DM === $this->dimension
-            ) &&
-            (
-                null !== $this->coordinates &&
-                null === $this->coordinates->m
-            )
-        ) {
-            throw MissingCoordinateException::create(
-                'M',
-                $this->dimension
-            );
-        }
     }
 }

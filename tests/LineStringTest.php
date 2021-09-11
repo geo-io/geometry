@@ -29,9 +29,9 @@ class LineStringTest extends TestCase
 
         new LineString(
             Dimension::DIMENSION_2D,
-            4326,
-            new Point(Dimension::DIMENSION_2D, 4326),
-            new Point(Dimension::DIMENSION_4D, 4326),
+            null,
+            new Point(Dimension::DIMENSION_2D, null),
+            new Point(Dimension::DIMENSION_4D, null),
         );
     }
 
@@ -39,11 +39,11 @@ class LineStringTest extends TestCase
     {
         $this->expectException(MixedSridsException::class);
 
-        new LinearRing(
+        new LineString(
             Dimension::DIMENSION_2D,
             4326,
             new Point(Dimension::DIMENSION_2D, 1234),
-            new Point(Dimension::DIMENSION_2D),
+            new Point(Dimension::DIMENSION_2D, 4326),
         );
     }
 

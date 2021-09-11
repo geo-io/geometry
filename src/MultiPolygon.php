@@ -25,7 +25,7 @@ class MultiPolygon extends BaseGeometry
         $this->srid = $srid;
         $this->polygons = $polygons;
 
-        $this->assertPolygons();
+        Assert::geometry($this);
     }
 
     public function isEmpty(): bool
@@ -39,12 +39,5 @@ class MultiPolygon extends BaseGeometry
     public function getPolygons(): array
     {
         return $this->polygons;
-    }
-
-    private function assertPolygons(): void
-    {
-        foreach ($this->getPolygons() as $polygon) {
-            $this->assertGeometry($polygon);
-        }
     }
 }
