@@ -55,15 +55,15 @@ class Factory implements FactoryInterface
     public function createPolygon(
         string $dimension,
         ?int $srid,
-        iterable $lineStrings,
+        iterable $linearRings,
     ): Polygon {
-        /** @var LinearRing[] $lineStrings */
-        $lineStrings = self::iterableToArray($lineStrings);
+        /** @var LinearRing[] $linearRings */
+        $linearRings = self::iterableToArray($linearRings);
 
         return new Polygon(
             $dimension,
             $srid,
-            ...$lineStrings
+            ...$linearRings
         );
     }
 
