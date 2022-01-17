@@ -15,9 +15,9 @@ class MixedDimensionalityException extends InvalidArgumentException implements E
         return new self(sprintf(
             'Can not mix dimensionality in a geometry: %s(%s) vs. %s(%s).',
             get_class($geometry),
-            $geometry->getDimension(),
+            $geometry->getDimension()->value,
             get_class($subGeometry),
-            $subGeometry->getDimension(),
+            $subGeometry->getDimension()->value,
         ));
     }
 }

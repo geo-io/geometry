@@ -17,12 +17,10 @@ class GeometryCollection implements Geometry
     private array $geometries;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         Geometry ...$geometries,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->geometries = $geometries;

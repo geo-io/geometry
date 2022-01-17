@@ -17,12 +17,10 @@ class LineString implements Geometry
     private array $points;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         Point ...$points,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->points = $points;

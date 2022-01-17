@@ -17,12 +17,10 @@ class Polygon implements Geometry
     private array $linearRings;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         LinearRing ...$lineStrings,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->linearRings = $lineStrings;

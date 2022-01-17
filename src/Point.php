@@ -14,12 +14,10 @@ class Point implements Geometry
     private ?Coordinates $coordinates;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         ?Coordinates $coordinates = null,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->coordinates = $coordinates;

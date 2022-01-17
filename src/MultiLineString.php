@@ -17,12 +17,10 @@ class MultiLineString implements Geometry
     private array $lineStrings;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         LineString ...$lineStrings,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->lineStrings = $lineStrings;

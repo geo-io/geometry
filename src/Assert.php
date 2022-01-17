@@ -58,8 +58,8 @@ final class Assert
 
         if (
             (
-                Dimension::DIMENSION_4D === $dimension ||
-                Dimension::DIMENSION_3DZ === $dimension
+                Dimension::DIMENSION_4D->value === $dimension->value ||
+                Dimension::DIMENSION_3DZ->value === $dimension->value
             ) &&
             (
                 !$point->isEmpty() &&
@@ -74,8 +74,8 @@ final class Assert
 
         if (
             (
-                Dimension::DIMENSION_4D === $dimension ||
-                Dimension::DIMENSION_3DM === $dimension
+                Dimension::DIMENSION_4D->value === $dimension->value ||
+                Dimension::DIMENSION_3DM->value === $dimension->value
             ) &&
             (
                 !$point->isEmpty() &&

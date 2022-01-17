@@ -17,12 +17,10 @@ class MultiPolygon implements Geometry
     private array $polygons;
 
     public function __construct(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid = null,
         Polygon ...$polygons,
     ) {
-        Dimension::assert($dimension);
-
         $this->dimension = $dimension;
         $this->srid = $srid;
         $this->polygons = $polygons;

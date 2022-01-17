@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace GeoIO\Geometry;
 
 use GeoIO\Coordinates;
+use GeoIO\Dimension;
 use GeoIO\Factory as FactoryInterface;
 use Traversable;
 
 class Factory implements FactoryInterface
 {
     public function createPoint(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         ?Coordinates $coordinates,
     ): Geometry {
@@ -23,7 +24,7 @@ class Factory implements FactoryInterface
     }
 
     public function createLineString(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $points,
     ): LineString {
@@ -38,7 +39,7 @@ class Factory implements FactoryInterface
     }
 
     public function createLinearRing(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $points,
     ): LinearRing {
@@ -53,7 +54,7 @@ class Factory implements FactoryInterface
     }
 
     public function createPolygon(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $linearRings,
     ): Polygon {
@@ -68,7 +69,7 @@ class Factory implements FactoryInterface
     }
 
     public function createMultiPoint(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $points,
     ): MultiPoint {
@@ -83,7 +84,7 @@ class Factory implements FactoryInterface
     }
 
     public function createMultiLineString(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $lineStrings,
     ): MultiLineString {
@@ -98,7 +99,7 @@ class Factory implements FactoryInterface
     }
 
     public function createMultiPolygon(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $polygons,
     ): MultiPolygon {
@@ -113,7 +114,7 @@ class Factory implements FactoryInterface
     }
 
     public function createGeometryCollection(
-        string $dimension,
+        Dimension $dimension,
         ?int $srid,
         iterable $geometries,
     ): GeometryCollection {

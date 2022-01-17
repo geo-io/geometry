@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GeoIO\Geometry;
 
 use GeoIO\Coordinates;
+use GeoIO\Dimension;
 use GeoIO\Extractor as ExtractorInterface;
 use GeoIO\Geometry\Exception\InvalidGeometryException;
 use GeoIO\GeometryType;
@@ -16,7 +17,7 @@ class Extractor implements ExtractorInterface
         return $geometry instanceof Geometry;
     }
 
-    public function extractType(mixed $geometry): string
+    public function extractType(mixed $geometry): GeometryType
     {
         return match (true) {
             $geometry instanceof Point => GeometryType::POINT,
@@ -31,7 +32,7 @@ class Extractor implements ExtractorInterface
         };
     }
 
-    public function extractDimension(mixed $geometry): string
+    public function extractDimension(mixed $geometry): Dimension
     {
         if (!$geometry instanceof Geometry) {
             throw InvalidGeometryException::createForWrongType(

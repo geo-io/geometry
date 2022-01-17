@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace GeoIO\Geometry;
 
+use GeoIO\Dimension;
+
 trait CommonMethods
 {
-    private string $dimension;
+    private Dimension $dimension;
     private ?int $srid;
 
-    public function getDimension(): string
+    public function getDimension(): Dimension
     {
         return $this->dimension;
     }
