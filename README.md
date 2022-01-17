@@ -29,4 +29,4 @@ composer require geo-io/geometry
 License
 --
 
-Geo I/O Geometry is released under the [MIT License](LICENSE).
+Copyright (c) 2014-2022 Jan Sorgalla. Released under the [MIT License](LICENSE).
