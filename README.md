@@ -2,7 +2,7 @@ Geo I/O Geometry
 ==
 
 [![Build Status](https://github.com/geo-io/geometry/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/geo-io/geometry/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/geo-io/geometry/badge.svg?branch=main&service=github)](https://coveralls.io/github/geo-io/geometry?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/geo-io/geometry/badge.svg?branch=main)](https://coveralls.io/github/geo-io/geometry?branch=main)
 
 Basic implementation of geometric objects which roughly follows the
 [Simple Feature Access for SQL](https://www.ogc.org/standards/sfs)
