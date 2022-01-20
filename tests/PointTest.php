@@ -18,7 +18,7 @@ class PointTest extends TestCase
         new Point(
             Dimension::DIMENSION_3DZ,
             4326,
-            new Coordinates(1, 2)
+            new Coordinates(1, 2),
         );
     }
 
@@ -29,7 +29,7 @@ class PointTest extends TestCase
         new Point(
             Dimension::DIMENSION_3DM,
             4326,
-            new Coordinates(1, 2, 3)
+            new Coordinates(1, 2, 3),
         );
     }
 

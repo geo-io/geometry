@@ -56,7 +56,7 @@ class ExtractorTest extends TestCase
         $object = new Point(
             Dimension::DIMENSION_4D,
             1234,
-            new Coordinates(1, 2, 3, 4)
+            new Coordinates(1, 2, 3, 4),
         );
 
         $extractor = new Extractor();
@@ -76,7 +76,7 @@ class ExtractorTest extends TestCase
         $object = new Point(
             Dimension::DIMENSION_4D,
             1234,
-            new Coordinates(1, 2, 3, 4)
+            new Coordinates(1, 2, 3, 4),
         );
 
         $extractor = new Extractor();
@@ -96,7 +96,7 @@ class ExtractorTest extends TestCase
         $object = new Point(
             Dimension::DIMENSION_4D,
             1234,
-            new Coordinates(1, 2, 3, 4)
+            new Coordinates(1, 2, 3, 4),
         );
 
         $extractor = new Extractor();
@@ -112,7 +112,7 @@ class ExtractorTest extends TestCase
     public function testExtractCoordinatesFromPointReturnsNullForEmptyPoint(): void
     {
         $object = new Point(
-            Dimension::DIMENSION_4D
+            Dimension::DIMENSION_4D,
         );
 
         $extractor = new Extractor();
@@ -134,19 +134,19 @@ class ExtractorTest extends TestCase
             new Point(
                 Dimension::DIMENSION_4D,
                 1234,
-                new Coordinates(1, 2, 3, 4)
+                new Coordinates(1, 2, 3, 4),
             ),
             new Point(
                 Dimension::DIMENSION_4D,
                 1234,
-                new Coordinates(1, 2, 3, 4)
+                new Coordinates(1, 2, 3, 4),
             ),
         ];
 
         $object = new LineString(
             Dimension::DIMENSION_4D,
             1234,
-            ...$points
+            ...$points,
         );
 
         $extractor = new Extractor();
@@ -173,30 +173,30 @@ class ExtractorTest extends TestCase
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
-                )
+                    new Coordinates(1, 2, 3, 4),
+                ),
             ),
         ];
 
         $object = new Polygon(
             Dimension::DIMENSION_4D,
             1234,
-            ...$lineStrings
+            ...$lineStrings,
         );
 
         $extractor = new Extractor();
@@ -220,19 +220,19 @@ class ExtractorTest extends TestCase
             new Point(
                 Dimension::DIMENSION_4D,
                 1234,
-                new Coordinates(1, 2, 3, 4)
+                new Coordinates(1, 2, 3, 4),
             ),
             new Point(
                 Dimension::DIMENSION_4D,
                 1234,
-                new Coordinates(1, 2, 3, 4)
+                new Coordinates(1, 2, 3, 4),
             ),
         ];
 
         $object = new MultiPoint(
             Dimension::DIMENSION_4D,
             1234,
-            ...$points
+            ...$points,
         );
 
         $extractor = new Extractor();
@@ -259,30 +259,30 @@ class ExtractorTest extends TestCase
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
-                )
+                    new Coordinates(1, 2, 3, 4),
+                ),
             ),
         ];
 
         $object = new MultiLineString(
             Dimension::DIMENSION_4D,
             1234,
-            ...$lineStrings
+            ...$lineStrings,
         );
 
         $extractor = new Extractor();
@@ -312,23 +312,23 @@ class ExtractorTest extends TestCase
                     new Point(
                         Dimension::DIMENSION_4D,
                         1234,
-                        new Coordinates(1, 2, 3, 4)
+                        new Coordinates(1, 2, 3, 4),
                     ),
                     new Point(
                         Dimension::DIMENSION_4D,
                         1234,
-                        new Coordinates(1, 2, 3, 4)
+                        new Coordinates(1, 2, 3, 4),
                     ),
                     new Point(
                         Dimension::DIMENSION_4D,
                         1234,
-                        new Coordinates(1, 2, 3, 4)
+                        new Coordinates(1, 2, 3, 4),
                     ),
                     new Point(
                         Dimension::DIMENSION_4D,
                         1234,
-                        new Coordinates(1, 2, 3, 4)
-                    )
+                        new Coordinates(1, 2, 3, 4),
+                    ),
                 ),
             ),
         ];
@@ -336,7 +336,7 @@ class ExtractorTest extends TestCase
         $object = new MultiPolygon(
             Dimension::DIMENSION_4D,
             1234,
-            ...$polygons
+            ...$polygons,
         );
 
         $extractor = new Extractor();
@@ -360,7 +360,7 @@ class ExtractorTest extends TestCase
             new Point(
                 Dimension::DIMENSION_4D,
                 1234,
-                new Coordinates(1, 2, 3, 4)
+                new Coordinates(1, 2, 3, 4),
             ),
             new LinearRing(
                 Dimension::DIMENSION_4D,
@@ -368,30 +368,30 @@ class ExtractorTest extends TestCase
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
+                    new Coordinates(1, 2, 3, 4),
                 ),
                 new Point(
                     Dimension::DIMENSION_4D,
                     1234,
-                    new Coordinates(1, 2, 3, 4)
-                )
+                    new Coordinates(1, 2, 3, 4),
+                ),
             ),
         ];
 
         $object = new GeometryCollection(
             Dimension::DIMENSION_4D,
             1234,
-            ...$geometries
+            ...$geometries,
         );
 
         $extractor = new Extractor();

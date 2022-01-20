@@ -68,7 +68,7 @@ final class Assert
         ) {
             throw MissingCoordinateException::create(
                 'Z',
-                $dimension
+                $dimension,
             );
         }
 
@@ -84,7 +84,7 @@ final class Assert
         ) {
             throw MissingCoordinateException::create(
                 'M',
-                $dimension
+                $dimension,
             );
         }
     }
@@ -99,7 +99,7 @@ final class Assert
             throw InsufficientNumberOfGeometriesException::create(
                 2,
                 $count,
-                'Point'
+                'Point',
             );
         }
 
@@ -120,7 +120,7 @@ final class Assert
             throw InsufficientNumberOfGeometriesException::create(
                 4,
                 $count,
-                'Point'
+                'Point',
             );
         }
 

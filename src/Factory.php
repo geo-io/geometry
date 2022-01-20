@@ -19,7 +19,7 @@ class Factory implements FactoryInterface
         return new Point(
             $dimension,
             $srid,
-            $coordinates
+            $coordinates,
         );
     }
 
@@ -34,7 +34,7 @@ class Factory implements FactoryInterface
         return new LineString(
             $dimension,
             $srid,
-            ...$points
+            ...$points,
         );
     }
 
@@ -49,7 +49,7 @@ class Factory implements FactoryInterface
         return new LinearRing(
             $dimension,
             $srid,
-            ...$points
+            ...$points,
         );
     }
 
@@ -64,7 +64,7 @@ class Factory implements FactoryInterface
         return new Polygon(
             $dimension,
             $srid,
-            ...$linearRings
+            ...$linearRings,
         );
     }
 
@@ -79,7 +79,7 @@ class Factory implements FactoryInterface
         return new MultiPoint(
             $dimension,
             $srid,
-            ...$points
+            ...$points,
         );
     }
 
@@ -94,7 +94,7 @@ class Factory implements FactoryInterface
         return new MultiLineString(
             $dimension,
             $srid,
-            ...$lineStrings
+            ...$lineStrings,
         );
     }
 
@@ -109,7 +109,7 @@ class Factory implements FactoryInterface
         return new MultiPolygon(
             $dimension,
             $srid,
-            ...$polygons
+            ...$polygons,
         );
     }
 
@@ -124,7 +124,7 @@ class Factory implements FactoryInterface
         return new GeometryCollection(
             $dimension,
             $srid,
-            ...$geometries
+            ...$geometries,
         );
     }
 
